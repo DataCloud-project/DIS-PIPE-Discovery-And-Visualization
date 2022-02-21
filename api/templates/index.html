@@ -130,6 +130,7 @@ function checkRefresh()
 						<p id='digraphP' style='display:none'>{{ stringP }}</p>
 						<p id='petriFreq' style='display:none'>Try</p>
 						<p id='petriPerf' style='display:none'>Try</p>
+						<p id='bpmn' style='display:none'>Try</p>
 						<p id='median' style='display:none'>{{ median }}</p>
 						<p id='total' style='display:none'>{{ total }}</p>
 						
@@ -800,6 +801,19 @@ function petriNetPerf() {
 petriNetFreq();
 petriNetPerf();
 		
+function reqListener5 () {
+  document.getElementById("bpmn").innerHTML = this.responseText;
+}
+
+function bpmnRequest() {
+	var oReq = new XMLHttpRequest();
+	oReq.addEventListener("load", reqListener5);
+	oReq.open("GET", "http://127.0.0.1:8080/bpmn", false);
+	oReq.send();
+}
+
+bpmnRequest();
+console.log(document.getElementById("bpmn").innerHTML);
 </script>	
 
 
