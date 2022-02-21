@@ -19,12 +19,13 @@ from pm4py.visualization.dfg import visualizer as dfg_visualization
 
 import pm4py
 from pm4py.objects.dfg.filtering import dfg_filtering
-
+from pm4py.algo.discovery.inductive import algorithm as inductive_miner
+from pm4py.visualization.petri_net import visualizer as pn_visualizer
 #log = xes_importer.apply('event logs\\running-example.xes')
     
 @app.route('/dfgFrequency', methods=['GET'])
 def dfgFrequency():
-    log = xes_importer.apply('event logs\\running-example.xes')    
+    log = xes_importer.apply('event logs\\running-example.xes')
     
     #DFG - process discovery
     dfg_freq = dfg_discovery.apply(log)
@@ -39,6 +40,26 @@ def dfgFrequency():
     #return render_template("index.html", img_freq = freq_img, img_perf = perf_img, string = str(gviz_freq))
     
     return str(gviz_freq)
+
+@app.route('/petriNetFreq', methods=['GET'])
+def petriNetFreq():
+    log = xes_importer.apply('event logs\\running-example.xes')
+    
+    net, initial_marking, final_marking = inductive_miner.apply(log)
+    parameters = {pn_visualizer.Variants.FREQUENCY.value.Parameters.FORMAT: "png"}
+    gviz_pnf = pn_visualizer.apply(net, initial_marking, final_marking, parameters=parameters, variant=pn_visualizer.Variants.FREQUENCY, log=log)
+    
+    return str(gviz_pnf)
+    
+@app.route('/petriNetPerf', methods=['GET'])
+def petriNetPerf():
+    log = xes_importer.apply('event logs\\running-example.xes')
+    
+    net, initial_marking, final_marking = inductive_miner.apply(log)
+    parameters = {pn_visualizer.Variants.PERFORMANCE.value.Parameters.FORMAT: "png"}
+    gviz_pnp = pn_visualizer.apply(net, initial_marking, final_marking, parameters=parameters, variant=pn_visualizer.Variants.PERFORMANCE, log=log)
+    
+    return str(gviz_pnp)
     
 @app.route('/dfgPerformance', methods=['GET'])
 def dfgPerformance():
@@ -134,7 +155,7 @@ def total():
     for i in range(0, len(all_case_durations)):
        total = total + all_case_durations[i];
 
-    return str(total)
+    return str(total)   
 
     
 app.run(host='127.0.0.1', port=7777)
