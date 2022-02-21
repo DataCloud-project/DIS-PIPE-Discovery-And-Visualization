@@ -495,9 +495,9 @@ li {
 .bottomleft {
   position:fixed;	
   bottom: 30px;
-  background-color:white;
+  background-color: white;
   border-radius: 12px;
-  padding: 6px;
+  width: 20%;
 }
 
 button{
@@ -509,6 +509,7 @@ button{
   cursor: pointer;
   border-radius: 12px;
   margin-bottom: 5px;
+  width: 265px;
 }
 
 .bottomleft input[type=submit]{
