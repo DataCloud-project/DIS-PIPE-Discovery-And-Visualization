@@ -15,6 +15,7 @@
 <!-- StackOverflow
 <script src="//d3js.org/d3.v4.min.js"></script> -->
 <script src="https://unpkg.com/viz.js@1.8.0/viz.js"></script>
+<!-- <script src="{{url_for('static', filename='styles/provaViz.js')}}"></script> -->
 <!--<script src="https://unpkg.com/d3-graphviz@0.1.2/build/d3-graphviz.js"></script>
 <script src="https://github.com/mdaines/viz.js"></script>-->
 
@@ -45,77 +46,36 @@ function showImg(img) {
 		x.style.width= "100%";
     }
 }
-</script>
-
-<script>
-window.onload = function() {
-
-	var perf_checked = document.getElementById("perf_checked");
-	if ((perf_checked).value == "true"){
-		(document.getElementById("tabFreq")).checked = false;
-		(document.getElementById("tabPerf")).checked = true;
-	}
-
-
-	var menu = document.getElementById("menu");
-	menu.style.display = "none";
-	//Load variants
-		var variants=[
-			"variant 1",
-			"variant 2",
-			"variant 3",
-			"variant 4",
-			"variant 5",
-			"variant 6",
-			"variant 7",
-			"variant 8"
-		];
-		
-		var cases=[
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID",
-			"case ID"
-		];
-		getMap();
-		
-		var ul1 = document.getElementById("variants-ul");
-		
-		variants.forEach(function(e){
-			var li = document.createElement('li');
-			li.innerText = e;
-			ul1.append(li);
-		});
-		
-		var ul2 = document.getElementById("case-ul");
-		
-		cases.forEach(function(e){
-			var li = document.createElement('li');
-			li.innerText = e;
-			ul2.append(li);
-		})
-		
-	
-		
+/*
+window.onload = function () {
+	if (document.readyState == "complete") { 
+		document.getElementById("loadingMessage").style.visibility = "hidden";	
+	}	
 }
+*/
+function checkRefresh()
+{
+		// This is a fresh page load
+		document.refreshForm.visited.value = "1";
+		if (document.readyState == "complete") { 
+			document.getElementById("loadingMessage").style.visibility = "hidden";	
+		}	
+		// You may want to add code here special for
+		// fresh page loads
 
+}
 </script>
 
-<body>
+
+<body onLoad="checkRefresh()">
+
+
+<form name="refreshForm">
+<input type="hidden" name="visited" value="1" />
+</form>
 	
-	<div id="loadingMessage" style="visibility:hidden">
-		This page is uploading!
+	<div id="loadingMessage" style="visibility:visible">
+		This page is loading!
 		<br />
 		Please wait.
 		<div class="loader"></div>
@@ -147,10 +107,11 @@ window.onload = function() {
 			</div>
 			
 			<div class="bottomleft" id="bottomleft">
-				<form action="" method='POST' enctype = "multipart/form-data" style="text-align:center">
+				<form action="" method='POST' enctype = "multipart/form-data">
 					<!-- <button type="button" for="myFile">Import log</button> -->
 					<button type="button" onclick="update()">Import log</button>
 					<input type='file' id="file" name="file" style="display:none">
+					<br />
 					<button type="button">Export to DSL</button>
 					<br />
 					<button type="button">Export to DEF-PIPE</button>
@@ -167,6 +128,8 @@ window.onload = function() {
 					 	<div class="title"> Map Content</div>
 						<p id='digraphF' style='display:none'>{{ stringF }}</p>
 						<p id='digraphP' style='display:none'>{{ stringP }}</p>
+						<p id='petriFreq' style='display:none'>Try</p>
+						<p id='petriPerf' style='display:none'>Try</p>
 						<p id='median' style='display:none'>{{ median }}</p>
 						<p id='total' style='display:none'>{{ total }}</p>
 						
@@ -222,7 +185,7 @@ window.onload = function() {
 											<br />
 										
 										
-											<input type="submit" value="Submit">
+											<button type="button" onclick="request('false')">Submit</button>
 										
 										</form> 
 										
@@ -260,7 +223,7 @@ window.onload = function() {
 											<br />
 											<br />
 										
-											<input type="submit" value="Submit">
+											<button type="button" onclick="request('true')">Submit</button>
 										
 										</form> 										
 										
@@ -646,20 +609,266 @@ window.onload = function() {
 		
 	</div>
 	
-			
-	
 </body>
 
 <script>
+function getMap() {
+		var selected = document.querySelector('input[name="mytabs"]:checked').value;
+		var sample;
+			 
+			
+			if (selected == 'frequency') {
+				sample = document.getElementById("digraphF").innerHTML;
+			}
+			else {
+				sample = document.getElementById("digraphP").innerHTML;
+			}
+		//var sample = 'digraph g{ a -> b}';
+		sample = sample.replace(/&#34;/g, '"');
+		sample = sample.replace(/&gt;/g, ">");
+		
+		
+		var options = {
+		  format: 'svg',
+		  ALLOW_MEMORY_GROWTH: 1,
+		  totalMemory: 537395200
+		  // format: 'png-image-element'
+		}
+
+		var image = Viz(sample, options);
+		var main = document.getElementById('graphContainer');
+
+		main.innerHTML = image;		// SVG
+
+		// Optional - resize the SVG element based on the contents.
+		/*var svg = document.querySelector('#graphContainer');
+		var bbox = svg.getBBox();
+		svg.style.width = bbox.width + 10.0 + "px";
+		svg.style.height = bbox.height + 10.0 + "px";*/
+		
+		var allGs = document.getElementsByTagName('g');
+		var firstG = allGs[0];
+		
+		var figli = main.children;
+		//console.log(figli[0].attributes.width.value);
+		
+		var graph = figli[0].children[0];
+		//console.log(figli[0].children[0].children[3].children[3].innerHTML);
+		//console.log(figli[0].children[0].children[3]);
+		//console.log(figli[0]);
+		//console.log(firstG.viewBox);
+		//firstG.style.shape = "circle";
+		//console.log(firstG.style.shape);
+			
+		var nodes = document.getElementsByClassName("node");
+		var edges = document.getElementsByClassName("edge");
+		
+		var nodesNames = [];
+		
+		for(var i=0; i<nodes.length; i++){
+			
+			//console.log(nodes[i].children[2].innerHTML);
+			nodesNames[i] = nodes[i].children[2].innerHTML;
+			nodes[i].children[0].innerHTML = nodesNames[i];
+			
+			nodes[i].addEventListener("click", function(e) {
+				// When the user clicks call function to open the popup
+			    openInfo(e);
+			}, false);
+			
+			
+		}
+		
+		
+		var edgesNames = [];
+		var popup = document.getElementById("myPopup");
+		
+		for( i=0; i<edges.length; i++){
+			edgesNames[i] = edges[i].children[3].innerHTML;
+			edges[i].children[0].innerHTML = edgesNames[i];
+			
+			edges[i].addEventListener("click", function(e) {
+				// When the user clicks call function to open the popup
+			    openInfo(e);
+			}, false);
+		}
+		
+		
+		var median = document.getElementById('median').innerHTML;
+		var total = document.getElementById('total').innerHTML;
+		
+		function secondsToHms(d) {
+			d = Number(d);
+			var h = Math.floor(d / 3600);
+			var m = Math.floor(d % 3600 / 60);
+			var s = Math.floor(d % 3600 % 60);
+
+			var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+			var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+			var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+			return hDisplay + mDisplay + sDisplay; 
+		}
+		var x = secondsToHms(median);
+		var y = secondsToHms(total);
+		popup.innerHTML = "Median duration: " + x + "<br /> <br />" + "Total duration: " + y;
+		
+		function openInfo(e) {
+		// When the user clicks, open the popup
+		
+			popup.classList.toggle("show");
+			popup.style.left = e.clientX-100 + "px";
+			popup.style.top = (e.clientY-180) + "px";
+			popup.style.zIndez = "15";
+			
+		}	
+}	
+</script>
+
+<script>
+function reqListener1 () {
+  document.getElementById("digraphF").innerHTML = this.responseText;
+  getMap();
+}
+
+function freqRequest() {
+	var oReq = new XMLHttpRequest();
+	oReq.addEventListener("load", reqListener1);
+	oReq.open("GET", "http://127.0.0.1:8080/dfgFrequency", false);
+	oReq.send();
+}
+
+function request(p_check) {
+		var pf = document.getElementById("myPathF").value;
+		var af = document.getElementById("myActF").value;
+		var df = "dfgFrequency";
+
+		var pp = document.getElementById("myPathP").value;
+		var ap = document.getElementById("myActP").value;
+		var dp = "dfgPerformance"
+		console.log(String(pf) + " " + String(af) + " " +String(pp)+ " "+String(ap) + " "+String(p_check));
+	
+	var oReq = new XMLHttpRequest();
+	if (p_check == "false") {
+		oReq.addEventListener("load", reqListener1);
+		oReq.open("GET", "http://127.0.0.1:8080/"+df+"?myPathF="+String(pf)+"&myActF="+String(af)+"&myPathP="+String(pp)+"&myActP="+String(ap)+"&perf_checked="+p_check, false);
+	}
+	else {
+		oReq.addEventListener("load", reqListener2);
+		oReq.open("GET", "http://127.0.0.1:8080/"+dp+"?myPathF="+String(pf)+"&myActF="+String(af)+"&myPathP="+String(pp)+"&myActP="+String(ap)+"&perf_checked="+p_check, false);
+	}
+	
+	oReq.send();
+}
+
+function reqListener2 () {
+  document.getElementById("digraphP").innerHTML = this.responseText;
+  getMap();
+}
+
+function perfRequest() {
+	var oReq = new XMLHttpRequest();
+	oReq.addEventListener("load", reqListener2);
+	oReq.open("GET", "http://127.0.0.1:8080/dfgPerformance", false);
+	oReq.send();
+}
+
+freqRequest();
+perfRequest();	
+
+function reqListener3 () {
+  document.getElementById("petriFreq").innerHTML = this.responseText;
+}
+
+function petriNetFreq() {
+	var oReq = new XMLHttpRequest();
+	oReq.addEventListener("load", reqListener3);
+	oReq.open("GET", "http://127.0.0.1:8080/petriFreq", false);
+	oReq.send();
+}
+
+function reqListener4 () {
+  document.getElementById("petriPerf").innerHTML = this.responseText;
+}
+
+function petriNetPerf() {
+	var oReq = new XMLHttpRequest();
+	oReq.addEventListener("load", reqListener4);
+	oReq.open("GET", "http://127.0.0.1:8080/petriPerf", false);
+	oReq.send();
+}
+
+petriNetFreq();
+petriNetPerf();
+		
+</script>	
+
+
+
+<script>
+var perf_checked = document.getElementById("perf_checked");
+if ((perf_checked).value == "true"){
+	(document.getElementById("tabFreq")).checked = false;
+	(document.getElementById("tabPerf")).checked = true;
+}
+
+var menu = document.getElementById("menu");
+menu.style.display = "none";
+
+//Load variants
+	var variants=[
+		"variant 1",
+		"variant 2",
+		"variant 3",
+		"variant 4",
+		"variant 5",
+		"variant 6",
+		"variant 7",
+		"variant 8"
+	];
+	
+	var cases=[
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID",
+		"case ID"
+	];
+	
+	getMap();
+	
+	var ul1 = document.getElementById("variants-ul");
+	
+	variants.forEach(function(e){
+		var li = document.createElement('li');
+		li.innerText = e;
+		ul1.append(li);
+	});
+	
+	var ul2 = document.getElementById("case-ul");
+	
+	cases.forEach(function(e){
+		var li = document.createElement('li');
+		li.innerText = e;
+		ul2.append(li);
+	});
+	
+
 window.onchange = function() {
 	if (document.getElementById("file").files[0] != undefined) {
-		document.getElementById("loadingMessage").style.visibility = "visible";
+		//document.getElementById("loadingMessage").style.visibility = "visible";
 		document.getElementById("updateBtn").click();
-        
+        document.getElementById("loadingMessage").style.visibility = "visible";
 	}
-	console.log(document.getElementById("loadingMessage").style.visibility);
-	
-	
 	var timeframe_selected = document.getElementById("keep_timeframe").value;
 	var img = document.getElementById("img");
 	var source = "../static/images/"
@@ -983,114 +1192,5 @@ sliderAP.oninput = function() {
 }
 </script>
 
-<script>
-function getMap() {
-		var selected = document.querySelector('input[name="mytabs"]:checked').value;
-		var sample;
-			 
-			
-			if (selected == 'frequency') {
-				sample = document.getElementById("digraphF").innerHTML;
-			}
-			else {
-				sample = document.getElementById("digraphP").innerHTML;
-			}
-		//var sample = 'digraph g{ a -> b}';
-		sample = sample.replace(/&#34;/g, '"');
-		sample = sample.replace(/&gt;/g, ">");
-
-		var options = {
-		  format: 'svg'
-		  // format: 'png-image-element'
-		}
-
-		var image = Viz(sample, options);
-		var main = document.getElementById('graphContainer');
-
-		main.innerHTML = image;		// SVG
-
-		// Optional - resize the SVG element based on the contents.
-		/*var svg = document.querySelector('#graphContainer');
-		var bbox = svg.getBBox();
-		svg.style.width = bbox.width + 10.0 + "px";
-		svg.style.height = bbox.height + 10.0 + "px";*/
-		
-		var allGs = document.getElementsByTagName('g');
-		var firstG = allGs[0];
-		
-		var figli = main.children;
-		//console.log(figli[0].attributes.width.value);
-		
-		var graph = figli[0].children[0];
-		//console.log(figli[0].children[0].children[3].children[3].innerHTML);
-		//console.log(figli[0].children[0].children[3]);
-		//console.log(figli[0]);
-		//console.log(firstG.viewBox);
-		//firstG.style.shape = "circle";
-		//console.log(firstG.style.shape);
-			
-		var nodes = document.getElementsByClassName("node");
-		var edges = document.getElementsByClassName("edge");
-		
-		var nodesNames = [];
-		
-		for(var i=0; i<nodes.length; i++){
-			
-			//console.log(nodes[i].children[2].innerHTML);
-			nodesNames[i] = nodes[i].children[2].innerHTML;
-			nodes[i].children[0].innerHTML = nodesNames[i];
-			
-			nodes[i].addEventListener("click", function(e) {
-				// When the user clicks call function to open the popup
-			    openInfo(e);
-			}, false);
-			
-			
-		}
-		
-		
-		var edgesNames = [];
-		var popup = document.getElementById("myPopup");
-		
-		for( i=0; i<edges.length; i++){
-			edgesNames[i] = edges[i].children[3].innerHTML;
-			edges[i].children[0].innerHTML = edgesNames[i];
-			
-			edges[i].addEventListener("click", function(e) {
-				// When the user clicks call function to open the popup
-			    openInfo(e);
-			}, false);
-		}
-		
-		
-		var median = document.getElementById('median').innerHTML;
-		var total = document.getElementById('total').innerHTML;
-		
-		function secondsToHms(d) {
-			d = Number(d);
-			var h = Math.floor(d / 3600);
-			var m = Math.floor(d % 3600 / 60);
-			var s = Math.floor(d % 3600 % 60);
-
-			var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
-			var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
-			var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
-			return hDisplay + mDisplay + sDisplay; 
-		}
-		var x = secondsToHms(median);
-		var y = secondsToHms(total);
-		popup.innerHTML = "Median duration: " + x + "<br /> <br />" + "Total duration: " + y;
-		
-		function openInfo(e) {
-		// When the user clicks, open the popup
-		
-			popup.classList.toggle("show");
-			popup.style.left = e.clientX-100 + "px";
-			popup.style.top = (e.clientY-180) + "px";
-			popup.style.zIndez = "15";
-			
-		}	
-}	
-</script>
 
 </html>
