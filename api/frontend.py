@@ -201,6 +201,13 @@ def petriPerf():
     petriP = requests.get('http://127.0.0.1:7777/petriNetPerf')
 
     return str(petriP.text)
+    
+@app.route('/bpmn', methods=['GET', 'POST'])
+def bpmn():
+    
+    bpmn = requests.get('http://127.0.0.1:7777/bpmn')
+
+    return str(bpmn.text)
 
 @app.route('/dfgFrequency', methods=['GET', 'POST'])
 def dfgFrequency():

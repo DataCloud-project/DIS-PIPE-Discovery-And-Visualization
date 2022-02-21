@@ -21,6 +21,7 @@ import pm4py
 from pm4py.objects.dfg.filtering import dfg_filtering
 from pm4py.algo.discovery.inductive import algorithm as inductive_miner
 from pm4py.visualization.petri_net import visualizer as pn_visualizer
+from pm4py.objects.conversion.process_tree import converter
 #log = xes_importer.apply('event logs\\running-example.xes')
     
 @app.route('/dfgFrequency', methods=['GET'])
@@ -60,6 +61,16 @@ def petriNetPerf():
     gviz_pnp = pn_visualizer.apply(net, initial_marking, final_marking, parameters=parameters, variant=pn_visualizer.Variants.PERFORMANCE, log=log)
     
     return str(gviz_pnp)
+    
+@app.route('/bpmn', methods=['GET'])
+def bpmn():
+    log = xes_importer.apply('event logs\\running-example.xes')
+    
+    tree = pm4py.discover_process_tree_inductive(log)
+    bpmn_graph = converter.apply(tree, variant=converter.Variants.TO_BPMN)
+    gviz_bpmn = pm4py.visualization.bpmn.visualizer.apply(bpmn_graph)
+    
+    return str(gviz_bpmn)
     
 @app.route('/dfgPerformance', methods=['GET'])
 def dfgPerformance():
