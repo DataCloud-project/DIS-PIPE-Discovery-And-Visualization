@@ -784,7 +784,7 @@ function exportDsl(){
 			predecessors[i] = predecessors[i] +'\n';	
 		}
 		// print the whole string for each step
-		dsl = dsl + '\tStep Step ' + dslSteps[i][0][0].replace(' ', '_') + '{\n' +
+		dsl = dsl + '\tStep Step ' + dslSteps[i][0][0].replaceAll(' ', '_') + '{\n' +
 		'\t\tTriggers:\n' +
 		'\t\t\t ExternalEventTrigger:\n' + predecessors[i] + '\n' + 
 		'\t\tParameters:\n' + parameters[i] + '\n' +
