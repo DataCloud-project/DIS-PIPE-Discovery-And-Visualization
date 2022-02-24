@@ -771,28 +771,36 @@ function exportDsl(){
 
 	var predecessors = [];
 	var parameters = [];
+	var count = [];
 	var dsl = 'Pipeline DiscoveryResult{\n';
 	
 	for (var i=0; i<dslSteps.length; i++){
-		// get predecessor and parameters list in a string
 		predecessors[i] = '';
-		parameters[i] = '\t\t\tFrequency: ' + dslSteps[i][0][1] + ',\n\t\t\tDuration: ' + dslSteps[i][0][2] + '\n';
+		count[i] = 0;
+		// get parameters of the current step in a string
+		parameters[i] = '\t\t\t\tFrequency: ' + dslSteps[i][0][1] + ',\n\t\t\t\tDuration: ' + dslSteps[i][0][2];
+		// iterate on the predecessors of the current step and save them in a string
 		for (var j=1; j<dslSteps[i].length; j++){
-			predecessors[i] = predecessors[i] + '\t\t\t\t StepCompleted: ' + dslSteps[i][j][0].replace(' ', '_');
+			count[i]++;
+			predecessors[i] = predecessors[i] + '\t\t\t\t' + dslSteps[i][j][0].replace(' ', '_');
 			if (j<dslSteps[i].length-1)
-				predecessors[i] = predecessors[i] +',';
-			predecessors[i] = predecessors[i] +'\n';	
+				predecessors[i] = predecessors[i] +',\n';	
 		}
 		// print the whole string for each step
-		dsl = dsl + '\tStep Step ' + dslSteps[i][0][0].replaceAll(' ', '_') + '{\n' +
-		'\t\tTriggers:\n' +
-		'\t\t\t ExternalEventTrigger:\n' + predecessors[i] + '\n' + 
-		'\t\tParameters:\n' + parameters[i] + '\n' +
-		'\t}\n';
+		dsl = dsl + '\t-\tStep Step: ' + dslSteps[i][0][0].replaceAll(' ', '_');
+		if (predecessors[i] != ''){
+			dsl = dsl + '\n\t\t\tPrevious:';
+			if (count[i]>1)
+				dsl = dsl + '[';
+			dsl = dsl + '\n' + predecessors[i];
+			if (count[i]>1)
+				dsl = dsl + '\n\t\t\t]';
+		}
+		dsl = dsl + '\n\t\t\tParameters:\n' + parameters[i] + '\n';
 	}
 	dsl = dsl + '\}';
 	// return the dsl
-	console.log(dsl);
+	console.log(count);
 	download(dsl, 'discovered_dsl', 'txt');
 }
 
