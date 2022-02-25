@@ -112,7 +112,7 @@ function checkRefresh()
 					<button type="button" onclick="update()">Import log</button>
 					<input type='file' id="file" name="file" style="display:none">
 					<br />
-					<button type="button">Export to DSL</button>
+					<button type="button" onclick="exportDsl()">Export to DSL</button>
 					<br />
 					<button type="button">Export to DEF-PIPE</button>
 					<input type="submit" id="updateBtn" value="Update" style="display:none">
@@ -612,10 +612,230 @@ function checkRefresh()
 	
 </body>
 
+<!--(parser -- Dario)-->
+<script>
+
+var graphTextF;
+var graphTextP;
+var graphNodesF;
+var graphNodesP;
+var graphNodes;
+var graphEdgesF;
+var graphEdgesP;
+var graphEdges;
+var dslSteps;
+
+function getGraphText(selector){
+	// take the graph in text form and save it 
+	// F is annotated with frequencies
+	// P is annotated with durations
+	if ( selector == 'frequency')
+		var graphText = document.getElementById("digraphF").innerHTML;
+	else
+		var graphText = document.getElementById("digraphP").innerHTML;
+	// fix formatting
+	graphText = graphText.replace(/&#34;/g, '"');
+	graphText = graphText.replace(/&gt;/g, ">");
+	// transform the string into an array, each line is an element
+	// then remove from the array the first 3 and last 2 elements which are useless
+	var graphText = graphText.split('\n\t').splice(3);
+	graphText.pop();
+	graphText.pop();
+
+	return graphText;
+}
+
+function getGraphNodes(graphText){
+	// obtain the array of nodes with parameter 
+	var graphNodes = [];
+	var j = 0;
+	// cycle throguh the graph array 
+	for (var i=0; i<graphText.length; i++){
+		// if this element has no '->' in the string, it's a node
+		if (graphText[i].search('->') == -1){
+			// save it into the nodes array, remove useless info from the string and increment j
+			// final array has two elements, (0):ID and (1):label
+			graphNodes[j] = graphText[i].split(' [');
+			graphNodes[j][1] = graphNodes[j][1].split('" ').shift().split('"').pop();
+			// if additional info about performance of frequency are not useful 
+			// add .split(' (').shift() to the previous line of code
+			graphNodes[j][2] = graphNodes[j][1].split('(').pop().split(')').shift();
+			graphNodes[j][1] = graphNodes[j][1].split('(').shift();
+			graphNodes[j][1] = graphNodes[j][1].substring(0, graphNodes[j][1].length-1);
+			j++;
+		}	
+	}
+	
+	return graphNodes;
+}
+
+function getCombinedNodes(graphNodesF, graphNodesP){
+	for (var i=0; i<graphNodesF.length; i++)
+		graphNodesF[i][3] = graphNodesP[i][2];
+	return graphNodesF;
+}
+
+function getGraphEdges(graphText){
+	//obtain the array of edges with parameter
+	var graphEdges = [];
+	var j = 0;
+	// cycle throguh the graph array 
+	for (var i=0; i<graphText.length; i++){
+		// if this element has '->' in the string, it's a node
+		if (graphText[i].search('->') != -1){
+			// save it into the nodes array, remove useless info from the string and increment j
+			graphEdges[j] = graphText[i].split(' f').shift().split(' [');
+			graphEdges[j][2] = graphEdges[j][1].split('=').pop();
+			graphEdges[j][0] = graphEdges[j][0].split(' -> ');
+			graphEdges[j][1] = graphEdges[j][0].pop();
+			graphEdges[j][0] = graphEdges[j][0].shift();
+			if (document.querySelector('input[name="mytabs"]:checked').value != 'frequency'){
+				graphEdges[j][2] = graphEdges[j][2].split('\"').splice(1,1);
+				graphEdges[j][2] = graphEdges[j][2].shift();
+			}
+			j++;
+		}	
+	}
+	
+	return graphEdges;
+}
+
+function getCombinedEdges(graphEdgesF, graphEdgesP){
+	for (var i=0; i<graphEdgesF.length; i++){
+		graphEdgesF[i][3] = graphEdgesP[i][2].split('\"').splice(1,1).shift();
+		
+	}
+	return graphEdgesF;
+}
+
+function getLabeledGraphEdges(graphNodes, graphEdges){
+	// for each couple of elements in graphEdges 
+	for (var i=0; i<graphEdges.length; i++){
+		// for each element in graphNodes
+		for (var j=0; j<graphNodes.length; j++){
+			// if they are equal, swap ID in edges for the Label in Nodes
+			if ( graphEdges[i][0] === graphNodes[j][0])
+				graphEdges[i][0] = graphNodes[j][1];
+			if ( graphEdges[i][1] === graphNodes[j][0])
+				graphEdges[i][1] = graphNodes[j][1];
+		}
+	}
+	return 1;
+}
+
+function getDslSteps(graphNodes, graphEdges){
+	// from graphNodes and graphEdges get a unique matrix ready for conversion
+	var dslSteps = [];
+	// for each node
+	for (var i=0; i<graphNodes.length; i++){
+		// save info about the node
+		dslSteps[i] = [];
+		dslSteps[i].push([graphNodes[i][1], graphNodes[i][2], graphNodes[i][3]]);
+		// then, for each edge
+		for (var j=0; j<graphEdges.length; j++){
+			// check if the current node is the successor
+			if (graphEdges[j][1] == graphNodes[i][1]){
+				// in that case save the info about the edge
+				dslSteps[i].push([graphEdges[j][0], graphEdges[j][2], graphEdges[j][3]]);
+			}
+		}
+	}
+	return dslSteps;
+}
+
+</script>
+
+<!--(onclick exportdsl -- Dario)-->
+<script>
+
+// Function to download data to a file
+function download(data, filename, type) {
+    var file = new Blob([data], {type: type});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
+}
+
+function exportDsl(){
+
+	var predecessors = [];
+	var parameters = [];
+	var count = [];
+	var dsl = 'Pipeline DiscoveryResult{\n';
+	
+	for (var i=0; i<dslSteps.length; i++){
+		predecessors[i] = '';
+		count[i] = 0;
+		// get parameters of the current step in a string
+		parameters[i] = '\t\t\t\tFrequency: ' + dslSteps[i][0][1] + ',\n\t\t\t\tDuration: ' + dslSteps[i][0][2];
+		// iterate on the predecessors of the current step and save them in a string
+		for (var j=1; j<dslSteps[i].length; j++){
+			count[i]++;
+			predecessors[i] = predecessors[i] + '\t\t\t\t' + dslSteps[i][j][0].replace(' ', '_');
+			if (j<dslSteps[i].length-1)
+				predecessors[i] = predecessors[i] +',\n';	
+		}
+		// print the whole string for each step
+		dsl = dsl + '\t-\tStep Step: ' + dslSteps[i][0][0].replaceAll(' ', '_');
+		if (predecessors[i] != ''){
+			dsl = dsl + '\n\t\t\tPrevious:';
+			if (count[i]>1)
+				dsl = dsl + '[';
+			dsl = dsl + '\n' + predecessors[i];
+			if (count[i]>1)
+				dsl = dsl + '\n\t\t\t]';
+		}
+		dsl = dsl + '\n\t\t\tParameters:\n' + parameters[i] + '\n';
+	}
+	dsl = dsl + '\}';
+	// return the dsl
+	console.log(count);
+	download(dsl, 'discovered_dsl', 'txt');
+}
+
+</script>
+
 <script>
 var start = [], end = [];
 
 function getMap() {
+	
+		// get graph in an array
+		graphTextF = getGraphText('frequency');
+		graphTextP = getGraphText();
+		// get nodes in an array 
+		graphNodesF = getGraphNodes(graphTextF);
+		graphNodesP = getGraphNodes(graphTextP);
+		graphNodes = getCombinedNodes(graphNodesF, graphNodesP);
+		// get edges in an array
+		graphEdgesF = getGraphEdges(graphTextF);
+		graphEdgesP = getGraphEdges(graphTextP);
+		graphEdges = getCombinedEdges(graphEdgesF, graphEdgesP);
+		getLabeledGraphEdges(graphNodes, graphEdges);
+		// get final matrix ready for dsl conversion
+		dslSteps = getDslSteps(graphNodes, graphEdges);
+		// debug
+		//console.log(graphTextF);
+		//console.log(graphTextP);
+		console.log(graphNodesP);
+		//console.log(graphNodesF);
+		//console.log(graphNodes);
+		//console.log(graphEdgesP);
+		//console.log(graphEdgesF);
+		//console.log(graphEdges);
+		//console.log(dslSteps);
+
 		var selected = document.querySelector('input[name="mytabs"]:checked').value;
 		var sample;
 			 
