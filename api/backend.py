@@ -22,6 +22,9 @@ from pm4py.objects.dfg.filtering import dfg_filtering
 from pm4py.algo.discovery.inductive import algorithm as inductive_miner
 from pm4py.visualization.petri_net import visualizer as pn_visualizer
 from pm4py.objects.conversion.process_tree import converter
+from pm4py.algo.filtering.log.start_activities import start_activities_filter
+from pm4py.algo.filtering.log.end_activities import end_activities_filter
+from pm4py.algo.discovery.footprints import algorithm as footprints_discovery
 #log = xes_importer.apply('event logs\\running-example.xes')
     
 @app.route('/dfgFrequency', methods=['GET'])
@@ -42,36 +45,6 @@ def dfgFrequency():
     
     return str(gviz_freq)
 
-@app.route('/petriNetFreq', methods=['GET'])
-def petriNetFreq():
-    log = xes_importer.apply('event logs\\running-example.xes')
-    
-    net, initial_marking, final_marking = inductive_miner.apply(log)
-    parameters = {pn_visualizer.Variants.FREQUENCY.value.Parameters.FORMAT: "png"}
-    gviz_pnf = pn_visualizer.apply(net, initial_marking, final_marking, parameters=parameters, variant=pn_visualizer.Variants.FREQUENCY, log=log)
-    
-    return str(gviz_pnf)
-    
-@app.route('/petriNetPerf', methods=['GET'])
-def petriNetPerf():
-    log = xes_importer.apply('event logs\\running-example.xes')
-    
-    net, initial_marking, final_marking = inductive_miner.apply(log)
-    parameters = {pn_visualizer.Variants.PERFORMANCE.value.Parameters.FORMAT: "png"}
-    gviz_pnp = pn_visualizer.apply(net, initial_marking, final_marking, parameters=parameters, variant=pn_visualizer.Variants.PERFORMANCE, log=log)
-    
-    return str(gviz_pnp)
-    
-@app.route('/bpmn', methods=['GET'])
-def bpmn():
-    log = xes_importer.apply('event logs\\running-example.xes')
-    
-    tree = pm4py.discover_process_tree_inductive(log)
-    bpmn_graph = converter.apply(tree, variant=converter.Variants.TO_BPMN)
-    gviz_bpmn = pm4py.visualization.bpmn.visualizer.apply(bpmn_graph)
-    
-    return str(gviz_bpmn)
-    
 @app.route('/dfgPerformance', methods=['GET'])
 def dfgPerformance():
     log = xes_importer.apply('event logs\\running-example.xes')   
@@ -142,6 +115,52 @@ def dfgPerfReduced():
     gviz_f = dfg_visualization.apply(dfg_p, log=log, variant=dfg_visualization.Variants.PERFORMANCE, parameters=parameters)
     
     return str(gviz_f)
+
+@app.route('/petriNetFreq', methods=['GET'])
+def petriNetFreq():
+    log = xes_importer.apply('event logs\\running-example.xes')
+    
+    net, initial_marking, final_marking = inductive_miner.apply(log)
+    parameters = {pn_visualizer.Variants.FREQUENCY.value.Parameters.FORMAT: "png"}
+    gviz_pnf = pn_visualizer.apply(net, initial_marking, final_marking, parameters=parameters, variant=pn_visualizer.Variants.FREQUENCY, log=log)
+    
+    return str(gviz_pnf)
+    
+@app.route('/petriNetPerf', methods=['GET'])
+def petriNetPerf():
+    log = xes_importer.apply('event logs\\running-example.xes')
+    
+    net, initial_marking, final_marking = inductive_miner.apply(log)
+    parameters = {pn_visualizer.Variants.PERFORMANCE.value.Parameters.FORMAT: "png"}
+    gviz_pnp = pn_visualizer.apply(net, initial_marking, final_marking, parameters=parameters, variant=pn_visualizer.Variants.PERFORMANCE, log=log)
+    
+    return str(gviz_pnp)
+    
+@app.route('/bpmn', methods=['GET'])
+def bpmn():
+    log = xes_importer.apply('event logs\\running-example.xes')
+    
+    tree = pm4py.discover_process_tree_inductive(log)
+    bpmn_graph = converter.apply(tree, variant=converter.Variants.TO_BPMN)
+    gviz_bpmn = pm4py.visualization.bpmn.visualizer.apply(bpmn_graph)
+    
+    return str(gviz_bpmn)
+
+@app.route('/start', methods=['GET'])
+def start():
+    log = xes_importer.apply('event logs\\running-example.xes')
+    
+    log_start = start_activities_filter.get_start_activities(log)
+    
+    return log_start
+    
+@app.route('/end', methods=['GET'])
+def end():
+    log = xes_importer.apply('event logs\\running-example.xes')
+    
+    end_activities = end_activities_filter.get_end_activities(log)
+    
+    return end_activities
     
 @app.route('/median', methods=['GET', 'POST'])
 def median():
@@ -168,5 +187,4 @@ def total():
 
     return str(total)   
 
-    
 app.run(host='127.0.0.1', port=7777)

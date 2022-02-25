@@ -20,12 +20,10 @@ from pm4py.visualization.dfg import visualizer as dfg_visualization
   
 @app.route('/', methods=['GET'])
 def home():
-    
-    #freq =requests.get('http://127.0.0.1:7777/dfgFrequency')
-    #perf =requests.get('http://127.0.0.1:7777/dfgPerformance')
+ 
     #median =requests.get('http://127.0.0.1:7777/median')
     #total =requests.get('http://127.0.0.1:7777/total')
-        
+
     
     #print(total.text)
     #freq_png = graphviz.Source(freq.text, filename="frequency", format="png")
@@ -63,6 +61,19 @@ def home():
     
     #return "<h1>This is just an example</h1><p>Here, you should see the Digraph in a String format.</p><img src='dfg.png'>" 
 
+@app.route('/start', methods=['GET', 'POST'])
+def start():
+    
+    start =requests.get('http://127.0.0.1:7777/start')
+    return start.text
+
+@app.route('/end', methods=['GET', 'POST'])
+def end():
+    
+    end =requests.get('http://127.0.0.1:7777/end')
+    return end.text
+    
+    
     '''
 @app.route('/', methods=['GET', 'POST'])
 def myPost():
@@ -208,12 +219,22 @@ def bpmn():
     bpmn = requests.get('http://127.0.0.1:7777/bpmn')
 
     return str(bpmn.text)
-
+    
 @app.route('/dfgFrequency', methods=['GET', 'POST'])
 def dfgFrequency():
+    f = requests.get('http://127.0.0.1:7777/dfgFrequency')
+    return str(f.text)
+    
+@app.route('/dfgPerformance', methods=['GET', 'POST'])
+def dfgPerformance():
+    p = requests.get('http://127.0.0.1:7777/dfgPerformance')
+    return str(p.text)
+    
+@app.route('/dfgFreqReduced', methods=['GET', 'POST'])
+def dfgFreqReduced():
     # GET request
     #if request.method == 'GET':
-    f = requests.get('http://127.0.0.1:7777/dfgFrequency')
+    #f = requests.get('http://127.0.0.1:7777/dfgFrequency')
     #myPathF = request.form.get('myPathF')
     myPathF = request.args.get('myPathF')
     #myActF = request.form.get('myActF')
@@ -248,8 +269,8 @@ def dfgFrequency():
         return 'Sucesss', 200 
     '''  
 
-@app.route('/dfgPerformance', methods=['GET', 'POST'])
-def dfgPerformance():
+@app.route('/dfgPerfReduced', methods=['GET', 'POST'])
+def dfgPerfReduced():
     # GET request
     if request.method == 'GET':
         myPathP = request.args.get('myPathP')
@@ -266,7 +287,7 @@ def dfgPerformance():
     paramsP = {'myPathP' : myPathP, 'myActP' : myActP}
     p = requests.get('http://127.0.0.1:7777/dfgPerfReduced', params = paramsP)
 
-    print(request.form.get('updated'))
+    #print(request.form.get('updated'))
     if request.form.get('updated') != None:
         f = request.files['file']
         if f.filename != '': 
