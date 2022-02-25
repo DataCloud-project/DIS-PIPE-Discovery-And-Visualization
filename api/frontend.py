@@ -17,34 +17,30 @@ import graphviz
 from graphviz import Digraph
 from pm4py.visualization.dfg import visualizer as dfg_visualization
 
+with open('../properties.txt') as f:
+    lines = f.readlines()
+    backend=lines[1]
+    backend = backend.split(': ')
+    path = backend[1]
+    #print(path)
+
+    frontend=lines[0]
+    frontend = frontend.split(': ')
+    http = frontend[1]
+    frontend = frontend[1]
+    frontend = frontend.split('//')
+    path_f = frontend[1].split(':')[0]
+    port_n = frontend[1].split(':')[1]
+    port_n = port_n.split('/')[0]
+    #print(path_f)
+    print(http)
+    #print(port_n)
+    
+f.close()
   
 @app.route('/', methods=['GET'])
 def home():
  
-    #median =requests.get('http://127.0.0.1:7777/median')
-    #total =requests.get('http://127.0.0.1:7777/total')
-
-    
-    #print(total.text)
-    #freq_png = graphviz.Source(freq.text, filename="frequency", format="png")
-    #dfg_visualization.save(freq_png, "static/images/frequency.png")
-    #freq_img = os.path.join(app.config['UPLOAD_FOLDER'], 'frequency.png')
-
-    #perf_png = graphviz.Source(perf.text, filename="performance", format="png")
-    #dfg_visualization.save(perf_png, "static/images/performance.png")
-    #perf_img = os.path.join(app.config['UPLOAD_FOLDER'], 'performance.png')
-    '''
-    return render_template("index.html", \
-        stringF = str(freq.text), \
-        stringP = str(perf.text), \
-        median = median.text, \
-        total = total.text, \
-        myPathF_init = "100", \
-        myActF_init = "100", \
-        myPathP_init = "100", \
-        myActP_init = "100", \
-        perf_checked = "false" ) 
-    '''
     return render_template("index.html", \
         stringF = "", \
         stringP = "", \
@@ -54,140 +50,21 @@ def home():
         myActF_init = "100", \
         myPathP_init = "100", \
         myActP_init = "100", \
-        perf_checked = "false" ) 
+        perf_checked = "false" , \
+        path = http) 
     
-    #return render_template("viz-js.html")
     
-    
-    #return "<h1>This is just an example</h1><p>Here, you should see the Digraph in a String format.</p><img src='dfg.png'>" 
-
 @app.route('/start', methods=['GET', 'POST'])
 def start():
     
-    start =requests.get('http://127.0.0.1:7777/start')
+    start =requests.get(path+'start')
     return start.text
 
 @app.route('/end', methods=['GET', 'POST'])
 def end():
     
-    end =requests.get('http://127.0.0.1:7777/end')
+    end =requests.get(path+'end')
     return end.text
-    
-    
-    '''
-@app.route('/', methods=['GET', 'POST'])
-def myPost():
-    
-    perfCheck = request.args.get('perf_checked')
-    print(perfCheck)
-    
-    if perfCheck == None:
-        return dfgFrequency()
-
-    else:
-        return dfgPerformance()
-    '''
-
-    '''
-    median =requests.get('http://127.0.0.1:7777/median')
-    total =requests.get('http://127.0.0.1:7777/total')
-        
-        
-    myPathP = request.form.get('myPathP')
-    myActP = request.form.get('myActP')
-    myPathF = request.form.get('myPathF')
-    myActF = request.form.get('myActF')
-    perfCheck = request.form.get('perf_checked')
-    
-    if perfCheck == None:
-        perfCheck = "false";
-    else:
-        perfCheck = "true";
-        
-    
-    #path = request.args.get('myPathF')
-    paramsF = {'myPathF' : myPathF, 'myActF' : myActF}
-    paramsP = {'myPathP' : myPathP, 'myActP' : myActP}
-    f = requests.get('http://127.0.0.1:7777/dfgFreqReduced', params = paramsF)
-    p = requests.get('http://127.0.0.1:7777/dfgPerfReduced', params = paramsP)
-    
-   
-    #f = requests.post('http://127.0.0.1:7777/dfgFreqReduced', path)
-    #f = requests.get('http://127.0.0.1:7777/dfgFreqReduced?myPahtF='+path)
-    print(request.form.get('updated'))
-    if request.form.get('updated') != None:
-        f = request.files['file']
-        if f.filename != '': 
-          #f.save("event logs/" + f.filename)
-          f.save("event logs/running-example.xes")
-          return home()      
-      
-    return render_template("index.html", \
-        stringF = str(f.text), \
-        stringP = str(p.text),\
-        median = median.text, \
-        total = total.text, \
-        myPathF_init = myPathF, \
-        myActF_init = myActF, \
-        myPathP_init = myPathP, \
-        myActP_init = myActP, \
-        perf_checked = perfCheck )
-        
-    '''
-    
-    
-    '''
-    #if request.method == 'POST' and request.form.get("frequency") != '':
-    if request.form.get("tabType") == 'frequency':
-        if request.form.get('myPathF') != '':
-            myPathF = request.form.get('myPathF')
-            myActF = request.form.get('myActF')
-            
-            #path = request.args.get('myPathF')
-           
-            params = {'myPathF' : myPathF, 'myActF' : myActF}
-            f = requests.get('http://127.0.0.1:7777/dfgFreqReduced', params = params)
-            perf =requests.get('http://127.0.0.1:7777/dfgPerformance')
-           
-            #f = requests.post('http://127.0.0.1:7777/dfgFreqReduced', path)
-            #f = requests.get('http://127.0.0.1:7777/dfgFreqReduced?myPahtF='+path)
-            return render_template("index.html", \
-                stringF = str(f.text), \
-                stringP = str(perf.text), \
-                median = median.text, \
-                total = total.text, \
-                myPathF_init = myPathF, \
-                myActF_init = myActF, \
-                myPathP_init = "0", \
-                myActP_init = "100" )
-            
-    if request.form.get("tabType") == 'performance':
-        if request.form.get('myPathP') != '':
-            myPathP = request.form.get('myPathP')
-            myActP = request.form.get('myActP')
-            myPathF = request.form.get('myPathF')
-            myActF = request.form.get('myActF')
-            
-            #path = request.args.get('myPathF')
-            paramsF = {'myPathP' : myPathF, 'myActP' : myActF}
-            paramsP = {'myPathP' : myPathP, 'myActP' : myActP}
-            f = requests.get('http://127.0.0.1:7777/dfgFreqReduced', params = paramsF)
-            p = requests.get('http://127.0.0.1:7777/dfgPerfReduced', params = paramsP)
-            
-           
-            #f = requests.post('http://127.0.0.1:7777/dfgFreqReduced', path)
-            #f = requests.get('http://127.0.0.1:7777/dfgFreqReduced?myPahtF='+path)
-            return render_template("index.html", \
-                stringF = str(f.text), \
-                stringP = str(p.text),\
-                median = median.text, \
-                total = total.text, \
-                myPathF_init = myPathF, \
-                myActF_init = myActF, \
-                myPathP_init = myPathP, \
-                myActP_init = myActP )
-    '''      
-
 
 @app.route('/', methods = ['POST'])
 def upload_file():
@@ -202,32 +79,32 @@ def upload_file():
 @app.route('/petriFreq', methods=['GET', 'POST'])
 def petriFreq():
     
-    petriF = requests.get('http://127.0.0.1:7777/petriNetFreq')
+    petriF = requests.get(path+'petriNetFreq')
 
     return str(petriF.text)
     
 @app.route('/petriPerf', methods=['GET', 'POST'])
 def petriPerf():
     
-    petriP = requests.get('http://127.0.0.1:7777/petriNetPerf')
+    petriP = requests.get(path+'petriNetPerf')
 
     return str(petriP.text)
     
 @app.route('/bpmn', methods=['GET', 'POST'])
 def bpmn():
     
-    bpmn = requests.get('http://127.0.0.1:7777/bpmn')
+    bpmn = requests.get(path+'bpmn')
 
     return str(bpmn.text)
     
 @app.route('/dfgFrequency', methods=['GET', 'POST'])
 def dfgFrequency():
-    f = requests.get('http://127.0.0.1:7777/dfgFrequency')
+    f = requests.get(path+'dfgFrequency')
     return str(f.text)
     
 @app.route('/dfgPerformance', methods=['GET', 'POST'])
 def dfgPerformance():
-    p = requests.get('http://127.0.0.1:7777/dfgPerformance')
+    p = requests.get(path+'dfgPerformance')
     return str(p.text)
     
 @app.route('/dfgFreqReduced', methods=['GET', 'POST'])
@@ -250,7 +127,7 @@ def dfgFreqReduced():
     
     #path = request.args.get('myPathF')
     paramsF = {'myPathF' : myPathF, 'myActF' : myActF}
-    f = requests.get('http://127.0.0.1:7777/dfgFreqReduced', params = paramsF)
+    f = requests.get(path+'dfgFreqReduced', params = paramsF)
 
     #if request.form.get('updated') != None:
     if request.args.get('updated') != None:
@@ -262,12 +139,7 @@ def dfgFreqReduced():
       
         
     return str(f.text)
-    '''
-    # POST request
-    if request.method == 'POST':
-        print(request.get_json())  # parse as JSON
-        return 'Sucesss', 200 
-    '''  
+
 
 @app.route('/dfgPerfReduced', methods=['GET', 'POST'])
 def dfgPerfReduced():
@@ -285,7 +157,7 @@ def dfgPerfReduced():
     
     #path = request.args.get('myPathF')
     paramsP = {'myPathP' : myPathP, 'myActP' : myActP}
-    p = requests.get('http://127.0.0.1:7777/dfgPerfReduced', params = paramsP)
+    p = requests.get(path+'dfgPerfReduced', params = paramsP)
 
     #print(request.form.get('updated'))
     if request.form.get('updated') != None:
@@ -298,10 +170,5 @@ def dfgPerfReduced():
         
   
     return str(p.text)
-    '''
-    # POST request
-    if request.method == 'POST':
-        print(request.get_json())  # parse as JSON
-        return 'Sucesss', 200     
-    '''
-app.run(host='127.0.0.1', port=8080)
+
+app.run(host=path_f, port=int(port_n))

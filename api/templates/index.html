@@ -35,7 +35,6 @@
 <script src="/static/styles/dotparser.js"></script>
 <script src="/static/styles/dotgraph.js"></script> -->
 
-
 <script>
 function showImg(img) {
     var x = document.getElementById(img);
@@ -69,6 +68,7 @@ function checkRefresh()
 
 <body onLoad="checkRefresh()">
 
+<p id="path_frontend" style="display:none">{{path}}</p>
 
 <form name="refreshForm">
 <input type="hidden" name="visited" value="1" />
@@ -807,10 +807,11 @@ function exportDsl(){
 </script>
 
 <script>
-var start = [], end = [];
+var frontend = document.getElementById("path_frontend").innerHTML;
 
 function getMap() {
 	
+	/*
 		// get graph in an array
 		graphTextF = getGraphText('frequency');
 		graphTextP = getGraphText();
@@ -836,6 +837,7 @@ function getMap() {
 		//console.log(graphEdges);
 		//console.log(dslSteps);
 
+	*/
 		var selected = document.querySelector('input[name="mytabs"]:checked').value;
 		var sample;
 			 
@@ -849,6 +851,9 @@ function getMap() {
 		//var sample = 'digraph g{ a -> b}';
 		sample = sample.replace(/&#34;/g, '"');
 		sample = sample.replace(/&gt;/g, ">");
+		sample = sample.replace(/&lt;/g, "<");
+		sample = sample.replace(/●/g, "&#9679;");
+		sample = sample.replace(/■/g, '&#9632;');
 		
 		
 		var options = {
@@ -898,21 +903,6 @@ function getMap() {
 			names = nodesNames[i].split(' (')[0];
 			names = '"'+ names +'"';
 			//console.log(names);
-			for(var k=0; k<start.length; k++){
-				if(names==start[k]){
-					//console.log("starting =" + names);
-					nodes[i].children[1].setAttribute("fill", "#90EE90");
-					nodes[i].children[1].setAttribute("stroke-dasharray", "0.5em");
-				}
-			}
-			
-			for(k=0; k<end.length; k++){
-				if(names==end[k]){
-					//console.log("ending =" + names);
-					nodes[i].children[1].setAttribute("fill", "#FF7F7F");
-					nodes[i].children[1].setAttribute("stroke-dasharray", "0.5em");
-				}
-			}
 			
 			nodes[i].addEventListener("click", function(e) {
 				// When the user clicks call function to open the popup
@@ -974,7 +964,7 @@ function reqListener1 () {
 function freqRequest() {
 	var oReq = new XMLHttpRequest();
 	oReq.addEventListener("load", reqListener1);
-	oReq.open("GET", "http://127.0.0.1:8080/dfgFrequency", false);
+	oReq.open("GET", frontend+"dfgFrequency", false);
 	oReq.send();
 }
 
@@ -992,11 +982,11 @@ function request(p_check) {
 	var oReq = new XMLHttpRequest();
 	if (p_check == "false") {
 		oReq.addEventListener("load", reqListener1);
-		oReq.open("GET", "http://127.0.0.1:8080/"+df+"?myPathF="+String(pf)+"&myActF="+String(af)+"&myPathP="+String(pp)+"&myActP="+String(ap)+"&perf_checked="+p_check, false);
+		oReq.open("GET", frontend+df+"?myPathF="+String(pf)+"&myActF="+String(af)+"&myPathP="+String(pp)+"&myActP="+String(ap)+"&perf_checked="+p_check, false);
 	}
 	else {
 		oReq.addEventListener("load", reqListener2);
-		oReq.open("GET", "http://127.0.0.1:8080/"+dp+"?myPathF="+String(pf)+"&myActF="+String(af)+"&myPathP="+String(pp)+"&myActP="+String(ap)+"&perf_checked="+p_check, false);
+		oReq.open("GET", frontend+dp+"?myPathF="+String(pf)+"&myActF="+String(af)+"&myPathP="+String(pp)+"&myActP="+String(ap)+"&perf_checked="+p_check, false);
 	}
 	
 	oReq.send();
@@ -1011,14 +1001,14 @@ function reqListener2 () {
 function perfRequest() {
 	var oReq = new XMLHttpRequest();
 	oReq.addEventListener("load", reqListener2);
-	oReq.open("GET", "http://127.0.0.1:8080/dfgPerformance", false);
+	oReq.open("GET", frontend+"dfgPerformance", false);
 	oReq.send();
 }
 
 freqRequest();
 perfRequest();	
 
-
+/*
 function reqListener3 () {
   document.getElementById("petriFreq").innerHTML = this.responseText;
 }
@@ -1026,7 +1016,7 @@ function reqListener3 () {
 function petriNetFreq() {
 	var oReq = new XMLHttpRequest();
 	oReq.addEventListener("load", reqListener3);
-	oReq.open("GET", "http://127.0.0.1:8080/petriFreq", false);
+	oReq.open("GET", frontend+"petriFreq", false);
 	oReq.send();
 }
 
@@ -1037,7 +1027,7 @@ function reqListener4 () {
 function petriNetPerf() {
 	var oReq = new XMLHttpRequest();
 	oReq.addEventListener("load", reqListener4);
-	oReq.open("GET", "http://127.0.0.1:8080/petriPerf", false);
+	oReq.open("GET", frontend+"petriPerf", false);
 	oReq.send();
 }
 
@@ -1051,14 +1041,14 @@ function reqListener5 () {
 function bpmnRequest() {
 	var oReq = new XMLHttpRequest();
 	oReq.addEventListener("load", reqListener5);
-	oReq.open("GET", "http://127.0.0.1:8080/bpmn", false);
+	oReq.open("GET", frontend+"bpmn", false);
 	oReq.send();
 }
 
 bpmnRequest();
+*/
 
-
-
+/*
 function starting(){
 	start = this.responseText;
 	start = start.match(/(?!^)".*?"/g);
@@ -1070,18 +1060,19 @@ function ending(){
 function startingPoint() {
 	var oReq = new XMLHttpRequest();
 	oReq.addEventListener("load", starting);
-	oReq.open("GET", "http://127.0.0.1:8080/start", false);
+	oReq.open("GET", frontend+"start", false);
 	oReq.send();
 }
 function endingPoint() {
 	var oReq = new XMLHttpRequest();
 	oReq.addEventListener("load", ending);
-	oReq.open("GET", "http://127.0.0.1:8080/end", false);
+	oReq.open("GET", frontend+"end", false);
 	oReq.send();
 }
 
 startingPoint();
 endingPoint();
+*/
 
 </script>	
 
