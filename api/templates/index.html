@@ -726,8 +726,8 @@ function getLabeledGraphEdges(graphNodes, graphEdges){
 function getDslSteps(graphNodes, graphEdges){
 	// from graphNodes and graphEdges get a unique matrix ready for conversion
 	var dslSteps = [];
-	// for each node
-	for (var i=0; i<graphNodes.length; i++){
+	// for each node NB: length-2 is to remove start and end activities!
+	for (var i=0; i<graphNodes.length-2; i++){
 		// save info about the node
 		dslSteps[i] = [];
 		dslSteps[i].push([graphNodes[i][1], graphNodes[i][2], graphNodes[i][3]]);
@@ -796,7 +796,7 @@ function exportDsl(){
 			if (count[i]>1)
 				dsl = dsl + '\n\t\t\t]';
 		}
-		dsl = dsl + '\n\t\t\tParameters:\n' + parameters[i] + '\n';
+		dsl = dsl + '\n\t\t\tEnvironmentParameters:\n' + parameters[i] + '\n';
 	}
 	dsl = dsl + '\}';
 	// return the dsl
@@ -806,38 +806,50 @@ function exportDsl(){
 
 </script>
 
+<!--(script with getMap())-->
 <script>
 var frontend = document.getElementById("path_frontend").innerHTML;
 
-function getMap() {
-	
-	/*
-		// get graph in an array
-		graphTextF = getGraphText('frequency');
-		graphTextP = getGraphText();
-		// get nodes in an array 
-		graphNodesF = getGraphNodes(graphTextF);
-		graphNodesP = getGraphNodes(graphTextP);
-		graphNodes = getCombinedNodes(graphNodesF, graphNodesP);
-		// get edges in an array
-		graphEdgesF = getGraphEdges(graphTextF);
-		graphEdgesP = getGraphEdges(graphTextP);
-		graphEdges = getCombinedEdges(graphEdgesF, graphEdgesP);
-		getLabeledGraphEdges(graphNodes, graphEdges);
-		// get final matrix ready for dsl conversion
-		dslSteps = getDslSteps(graphNodes, graphEdges);
-		// debug
-		//console.log(graphTextF);
-		//console.log(graphTextP);
-		console.log(graphNodesP);
-		//console.log(graphNodesF);
-		//console.log(graphNodes);
-		//console.log(graphEdgesP);
-		//console.log(graphEdgesF);
-		//console.log(graphEdges);
-		//console.log(dslSteps);
-
-	*/
+function getMap(bool) {
+		
+		// DARIO START
+		if (bool){
+			// get graph in an array
+			graphTextF = getGraphText('frequency');
+			graphTextP = getGraphText();
+			// get nodes in an array 
+			graphNodesF = getGraphNodes(graphTextF);
+			graphNodesP = getGraphNodes(graphTextP);
+			graphNodes = getCombinedNodes(graphNodesF, graphNodesP);
+			// get edges in an array
+			graphEdgesF = getGraphEdges(graphTextF);
+			graphEdgesP = getGraphEdges(graphTextP);
+			graphEdges = getCombinedEdges(graphEdgesF, graphEdgesP);
+			getLabeledGraphEdges(graphNodes, graphEdges);
+			// get final matrix ready for dsl conversion
+			dslSteps = getDslSteps(graphNodes, graphEdges);
+			// debug
+			console.log('GraphTextF:');
+			console.log(graphTextF);
+			console.log('GraphTextP:');
+			console.log(graphTextP);/*
+			console.log('GraphNodesP:');
+			console.log(graphNodesP);
+			console.log('GraphNodesF:');
+			console.log(graphNodesF);
+			console.log('GraphNodes:');
+			console.log(graphNodes);
+			console.log('GraphEdgesP:');
+			console.log(graphEdgesP);
+			console.log('GraphEdgesF:');
+			console.log(graphEdgesF);
+			console.log('GraphEdges:');
+			console.log(graphEdges);
+			console.log('dslSteps:');*/
+			console.log(dslSteps);
+		}
+		//DARIO END
+		
 		var selected = document.querySelector('input[name="mytabs"]:checked').value;
 		var sample;
 			 
@@ -958,7 +970,7 @@ function getMap() {
 <script>
 function reqListener1 () {
   document.getElementById("digraphF").innerHTML = this.responseText;
-  getMap();
+  getMap(false);
 }
 
 function freqRequest() {
@@ -995,7 +1007,7 @@ function request(p_check) {
 
 function reqListener2 () {
   document.getElementById("digraphP").innerHTML = this.responseText;
-  getMap();
+  getMap(false);
 }
 
 function perfRequest() {
@@ -1118,7 +1130,7 @@ menu.style.display = "none";
 		"case ID"
 	];
 	
-	getMap();
+	getMap(true);
 	
 	var ul1 = document.getElementById("variants-ul");
 	
