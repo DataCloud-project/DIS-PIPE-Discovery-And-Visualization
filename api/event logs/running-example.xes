@@ -1,2080 +1,380 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--  XES version 1849.2016 (IEEE 1849-2016)  -->
-<!--  Created by Fluxicon Disco (fluxicon.com/disco)  -->
-<!--  (c) 2022 by Fluxicon BV, Bomanshof 259, 5611 NS Eindhoven, The Netherlands  -->
-<log xes.version="1849.2016" xmlns="http://www.xes-standard.org" xes.creator="Fluxicon Disco">
-	<extension name="Concept" prefix="concept" uri="http://www.xes-standard.org/concept.xesext"/>
-	<extension name="Lifecycle" prefix="lifecycle" uri="http://www.xes-standard.org/lifecycle.xesext"/>
-	<extension name="Time" prefix="time" uri="http://www.xes-standard.org/time.xesext"/>
-	<extension name="Organizational" prefix="org" uri="http://www.xes-standard.org/org.xesext"/>
-	<global scope="trace">
-		<string key="concept:name" value="name"/>
-		<string key="variant" value="string"/>
-		<int key="variant-index" value="0"/>
-		<string key="processId" value="string"/>
-	</global>
-	<global scope="event">
-		<string key="concept:name" value="name"/>
-		<string key="lifecycle:transition" value="transition"/>
-		<string key="org:resource" value="resource"/>
-		<date key="time:timestamp" value="2022-02-25T15:03:34.938+01:00"/>
-		<string key="Activity" value="string"/>
-		<string key="Resource" value="string"/>
-		<string key="elementId" value="string"/>
-	</global>
-	<classifier name="Activity" keys="Activity"/>
-	<classifier name="Resource" keys="Resource"/>
-	<string key="lifecycle:model" value="standard"/>
-	<string key="creator" value="Fluxicon Disco"/>
-	<string key="library" value="Fluxicon Octane"/>
-	<trace>
-		<string key="concept:name" value="7"/>
-		<string key="variant" value="Variant 1"/>
-		<int key="variant-index" value="1"/>
-		<string key="creator" value="Fluxicon Disco"/>
-		<string key="processId" value="Process_1"/>
-		<event>
-			<string key="concept:name" value="EVENT 2 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:35.398+01:00"/>
-			<string key="Activity" value="EVENT 2 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gjguyy"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 13 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:35.398+01:00"/>
-			<string key="Activity" value="EVENT 13 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_1uluwvc"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveTempMeasure"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:35.398+01:00"/>
-			<string key="Activity" value="receiveTempMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1wugku2"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveTempMeasure"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:35.537+01:00"/>
-			<string key="Activity" value="receiveTempMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1wugku2"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:35.537+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:35.629+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:35.629+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:35.971+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:35.971+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 14 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:35.971+01:00"/>
-			<string key="Activity" value="EVENT 14 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0ijzhak"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:36.097+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:36.097+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:36.248+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:36.248+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:37.329+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:37.329+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:37.490+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 12 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:37.490+01:00"/>
-			<string key="Activity" value="EVENT 12 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gu15f7"/>
-		</event>
-	</trace>
-	<trace>
-		<string key="concept:name" value="0"/>
-		<string key="variant" value="Variant 3"/>
-		<int key="variant-index" value="3"/>
-		<string key="creator" value="Fluxicon Disco"/>
-		<string key="processId" value="Process_1"/>
-		<event>
-			<string key="concept:name" value="EVENT 2 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.000+01:00"/>
-			<string key="Activity" value="EVENT 2 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gjguyy"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 13 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.000+01:00"/>
-			<string key="Activity" value="EVENT 13 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_1uluwvc"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveBloodMeasure"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.000+01:00"/>
-			<string key="Activity" value="receiveBloodMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_0bf5drw"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveBloodMeasure"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.227+01:00"/>
-			<string key="Activity" value="receiveBloodMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_0bf5drw"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.227+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.421+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.421+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.734+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.734+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 14 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.734+01:00"/>
-			<string key="Activity" value="EVENT 14 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0ijzhak"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.972+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:00.972+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:01.075+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:01.075+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:01.692+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:01.692+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:02.768+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:02.768+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:02.862+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 12 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:02.862+01:00"/>
-			<string key="Activity" value="EVENT 12 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gu15f7"/>
-		</event>
-	</trace>
-	<trace>
-		<string key="concept:name" value="6"/>
-		<string key="variant" value="Variant 4"/>
-		<int key="variant-index" value="4"/>
-		<string key="creator" value="Fluxicon Disco"/>
-		<string key="processId" value="Process_1"/>
-		<event>
-			<string key="concept:name" value="EVENT 2 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:20.553+01:00"/>
-			<string key="Activity" value="EVENT 2 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gjguyy"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 13 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:20.553+01:00"/>
-			<string key="Activity" value="EVENT 13 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_1uluwvc"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveBloodMeasure"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:20.553+01:00"/>
-			<string key="Activity" value="receiveBloodMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_0bf5drw"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveBloodMeasure"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:20.656+01:00"/>
-			<string key="Activity" value="receiveBloodMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_0bf5drw"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:20.656+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:20.858+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:20.858+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:21.166+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:21.166+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 14 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:21.166+01:00"/>
-			<string key="Activity" value="EVENT 14 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0ijzhak"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:21.430+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:21.430+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:21.624+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:21.624+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:22.858+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:22.858+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:23.872+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:23.872+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:25.362+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:25.362+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:26.382+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:26.382+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:27.121+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:27.121+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:28.199+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:28.199+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:28.752+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:28.752+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:28.867+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 12 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:28.867+01:00"/>
-			<string key="Activity" value="EVENT 12 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gu15f7"/>
-		</event>
-	</trace>
-	<trace>
-		<string key="concept:name" value="8"/>
-		<string key="variant" value="Variant 5"/>
-		<int key="variant-index" value="5"/>
-		<string key="creator" value="Fluxicon Disco"/>
-		<string key="processId" value="Process_1"/>
-		<event>
-			<string key="concept:name" value="EVENT 2 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:47.496+01:00"/>
-			<string key="Activity" value="EVENT 2 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gjguyy"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 13 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:47.496+01:00"/>
-			<string key="Activity" value="EVENT 13 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_1uluwvc"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveScaleMeasure"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:47.496+01:00"/>
-			<string key="Activity" value="receiveScaleMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_16u5uas"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveScaleMeasure"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:47.658+01:00"/>
-			<string key="Activity" value="receiveScaleMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_16u5uas"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:47.658+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:47.737+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:47.737+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:48.105+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:48.105+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 14 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:48.105+01:00"/>
-			<string key="Activity" value="EVENT 14 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0ijzhak"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:48.392+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:48.392+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:48.652+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:48.652+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:49.171+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:49.171+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:50.253+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:50.253+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:50.368+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 12 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:50.368+01:00"/>
-			<string key="Activity" value="EVENT 12 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gu15f7"/>
-		</event>
-	</trace>
-	<trace>
-		<string key="concept:name" value="3"/>
-		<string key="variant" value="Variant 2"/>
-		<int key="variant-index" value="2"/>
-		<string key="creator" value="Fluxicon Disco"/>
-		<string key="processId" value="Process_1"/>
-		<event>
-			<string key="concept:name" value="EVENT 2 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:47.415+01:00"/>
-			<string key="Activity" value="EVENT 2 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gjguyy"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 13 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:47.415+01:00"/>
-			<string key="Activity" value="EVENT 13 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_1uluwvc"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveBloodMeasure"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:47.415+01:00"/>
-			<string key="Activity" value="receiveBloodMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_0bf5drw"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveBloodMeasure"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:47.605+01:00"/>
-			<string key="Activity" value="receiveBloodMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_0bf5drw"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:47.605+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:47.771+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:47.771+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:47.908+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:47.908+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 14 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:47.908+01:00"/>
-			<string key="Activity" value="EVENT 14 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0ijzhak"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:48.077+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:48.077+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:48.185+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:48.185+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:49.333+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:49.333+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:49.456+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 12 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:49.456+01:00"/>
-			<string key="Activity" value="EVENT 12 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gu15f7"/>
-		</event>
-	</trace>
-	<trace>
-		<string key="concept:name" value="2"/>
-		<string key="variant" value="Variant 2"/>
-		<int key="variant-index" value="2"/>
-		<string key="creator" value="Fluxicon Disco"/>
-		<string key="processId" value="Process_1"/>
-		<event>
-			<string key="concept:name" value="EVENT 2 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:31.395+01:00"/>
-			<string key="Activity" value="EVENT 2 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gjguyy"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 13 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:31.395+01:00"/>
-			<string key="Activity" value="EVENT 13 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_1uluwvc"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveBloodMeasure"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:31.395+01:00"/>
-			<string key="Activity" value="receiveBloodMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_0bf5drw"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveBloodMeasure"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:31.528+01:00"/>
-			<string key="Activity" value="receiveBloodMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_0bf5drw"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:31.528+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:31.865+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:31.865+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:32.287+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:32.287+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 14 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:32.287+01:00"/>
-			<string key="Activity" value="EVENT 14 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0ijzhak"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:32.413+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:32.413+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:32.472+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:32.472+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:33.219+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:33.219+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:33.335+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 12 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:33.335+01:00"/>
-			<string key="Activity" value="EVENT 12 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gu15f7"/>
-		</event>
-	</trace>
-	<trace>
-		<string key="concept:name" value="4"/>
-		<string key="variant" value="Variant 1"/>
-		<int key="variant-index" value="1"/>
-		<string key="creator" value="Fluxicon Disco"/>
-		<string key="processId" value="Process_1"/>
-		<event>
-			<string key="concept:name" value="EVENT 2 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:57.515+01:00"/>
-			<string key="Activity" value="EVENT 2 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gjguyy"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 13 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:57.515+01:00"/>
-			<string key="Activity" value="EVENT 13 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_1uluwvc"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveTempMeasure"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:57.515+01:00"/>
-			<string key="Activity" value="receiveTempMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1wugku2"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveTempMeasure"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:57.582+01:00"/>
-			<string key="Activity" value="receiveTempMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1wugku2"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:57.582+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:57.703+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:57.703+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:57.961+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:57.961+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 14 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:57.961+01:00"/>
-			<string key="Activity" value="EVENT 14 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0ijzhak"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:58.134+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:58.134+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:58.369+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:58.369+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:58.947+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:58.947+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:59.264+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 12 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:59.264+01:00"/>
-			<string key="Activity" value="EVENT 12 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gu15f7"/>
-		</event>
-	</trace>
-	<trace>
-		<string key="concept:name" value="1"/>
-		<string key="variant" value="Variant 1"/>
-		<int key="variant-index" value="1"/>
-		<string key="creator" value="Fluxicon Disco"/>
-		<string key="processId" value="Process_1"/>
-		<event>
-			<string key="concept:name" value="EVENT 2 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:14.047+01:00"/>
-			<string key="Activity" value="EVENT 2 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gjguyy"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 13 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:14.047+01:00"/>
-			<string key="Activity" value="EVENT 13 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_1uluwvc"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveTempMeasure"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:14.047+01:00"/>
-			<string key="Activity" value="receiveTempMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1wugku2"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveTempMeasure"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:14.298+01:00"/>
-			<string key="Activity" value="receiveTempMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1wugku2"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:14.298+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:14.394+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:14.394+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:14.764+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:14.764+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 14 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:14.764+01:00"/>
-			<string key="Activity" value="EVENT 14 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0ijzhak"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:15.053+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:15.053+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:15.217+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:15.217+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:16.092+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:16.092+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:00:16.200+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 12 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:00:16.200+01:00"/>
-			<string key="Activity" value="EVENT 12 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gu15f7"/>
-		</event>
-	</trace>
-	<trace>
-		<string key="concept:name" value="5"/>
-		<string key="variant" value="Variant 6"/>
-		<int key="variant-index" value="6"/>
-		<string key="creator" value="Fluxicon Disco"/>
-		<string key="processId" value="Process_1"/>
-		<event>
-			<string key="concept:name" value="EVENT 2 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:07.060+01:00"/>
-			<string key="Activity" value="EVENT 2 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gjguyy"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 13 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:07.060+01:00"/>
-			<string key="Activity" value="EVENT 13 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_1uluwvc"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveScaleMeasure"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:07.060+01:00"/>
-			<string key="Activity" value="receiveScaleMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_16u5uas"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveScaleMeasure"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:07.302+01:00"/>
-			<string key="Activity" value="receiveScaleMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_16u5uas"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:07.302+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:07.590+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:07.590+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:07.898+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:07.898+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 14 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:07.898+01:00"/>
-			<string key="Activity" value="EVENT 14 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0ijzhak"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:08.037+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:08.037+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:08.366+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:08.366+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:09.414+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:09.414+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:10.337+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:10.337+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:11.858+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:11.858+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:12.651+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:12.651+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:01:12.792+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 12 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:01:12.792+01:00"/>
-			<string key="Activity" value="EVENT 12 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gu15f7"/>
-		</event>
-	</trace>
-	<trace>
-		<string key="concept:name" value="9"/>
-		<string key="variant" value="Variant 2"/>
-		<int key="variant-index" value="2"/>
-		<string key="creator" value="Fluxicon Disco"/>
-		<string key="processId" value="Process_1"/>
-		<event>
-			<string key="concept:name" value="EVENT 2 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:02:05.338+01:00"/>
-			<string key="Activity" value="EVENT 2 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gjguyy"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 13 START"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:02:05.338+01:00"/>
-			<string key="Activity" value="EVENT 13 START"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_1uluwvc"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveBloodMeasure"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:05.338+01:00"/>
-			<string key="Activity" value="receiveBloodMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_0bf5drw"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveBloodMeasure"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:05.435+01:00"/>
-			<string key="Activity" value="receiveBloodMeasure"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_0bf5drw"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:05.435+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="receiveDataFromMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:05.672+01:00"/>
-			<string key="Activity" value="receiveDataFromMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1jvlw48"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:05.672+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="sendDataToMq"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:05.995+01:00"/>
-			<string key="Activity" value="sendDataToMq"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_175b5zm"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:05.995+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 14 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:02:05.995+01:00"/>
-			<string key="Activity" value="EVENT 14 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0ijzhak"/>
-		</event>
-		<event>
-			<string key="concept:name" value="createLog"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:06.205+01:00"/>
-			<string key="Activity" value="createLog"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_14s221a"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:06.205+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="startAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:06.530+01:00"/>
-			<string key="Activity" value="startAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1ryq35g"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:06.530+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="analyzeData"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:07.421+01:00"/>
-			<string key="Activity" value="analyzeData"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1xe7czy"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="start"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:07.421+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="endAnalysis"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value="Default Resource-000001"/>
-			<date key="time:timestamp" value="2022-02-25T10:02:07.537+01:00"/>
-			<string key="Activity" value="endAnalysis"/>
-			<string key="Resource" value="Default Resource-000001"/>
-			<string key="elementId" value="Activity_1v68o9x"/>
-			<string key="resourceId" value="QBP_DEFAULT_RESOURCE"/>
-		</event>
-		<event>
-			<string key="concept:name" value="EVENT 12 END"/>
-			<string key="lifecycle:transition" value="complete"/>
-			<string key="org:resource" value=""/>
-			<date key="time:timestamp" value="2022-02-25T10:02:07.537+01:00"/>
-			<string key="Activity" value="EVENT 12 END"/>
-			<string key="Resource" value=""/>
-			<string key="elementId" value="Event_0gu15f7"/>
-		</event>
-	</trace>
+<?xml version='1.0' encoding='UTF-8'?>
+<log>
+  <string key="creator" value="Fluxicon Nitro"/>
+  <extension name="Concept" prefix="concept" uri="http://code.deckfour.org/xes/concept.xesext"/>
+  <extension name="Time" prefix="time" uri="http://code.deckfour.org/xes/time.xesext"/>
+  <extension name="Organizational" prefix="org" uri="http://code.deckfour.org/xes/org.xesext"/>
+  <global scope="trace">
+    <string key="concept:name" value="name"/>
+  </global>
+  <global scope="event">
+    <string key="concept:name" value="name"/>
+    <string key="org:resource" value="resource"/>
+    <date key="time:timestamp" value="2011-04-13T14:02:31.199+02:00"/>
+    <string key="Activity" value="string"/>
+    <string key="Resource" value="string"/>
+    <string key="Costs" value="string"/>
+  </global>
+  <classifier name="Activity" keys="Activity"/>
+  <classifier name="activity classifier" keys="Activity"/>
+  <trace>
+    <string key="concept:name" value="3"/>
+    <string key="creator" value="Fluxicon Nitro"/>
+    <event>
+      <string key="concept:name" value="register request"/>
+      <string key="org:resource" value="Pete"/>
+      <date key="time:timestamp" value="2010-12-30T14:32:00.000+01:00"/>
+      <string key="Activity" value="register request"/>
+      <string key="Resource" value="Pete"/>
+      <string key="Costs" value="50"/>
+    </event>
+    <event>
+      <string key="concept:name" value="examine casually"/>
+      <string key="org:resource" value="Mike"/>
+      <date key="time:timestamp" value="2010-12-30T15:06:00.000+01:00"/>
+      <string key="Activity" value="examine casually"/>
+      <string key="Resource" value="Mike"/>
+      <string key="Costs" value="400"/>
+    </event>
+    <event>
+      <string key="concept:name" value="check ticket"/>
+      <string key="org:resource" value="Ellen"/>
+      <date key="time:timestamp" value="2010-12-30T16:34:00.000+01:00"/>
+      <string key="Activity" value="check ticket"/>
+      <string key="Resource" value="Ellen"/>
+      <string key="Costs" value="100"/>
+    </event>
+    <event>
+      <string key="concept:name" value="decide"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-06T09:18:00.000+01:00"/>
+      <string key="Activity" value="decide"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="reinitiate request"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-06T12:18:00.000+01:00"/>
+      <string key="Activity" value="reinitiate request"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="examine thoroughly"/>
+      <string key="org:resource" value="Sean"/>
+      <date key="time:timestamp" value="2011-01-06T13:06:00.000+01:00"/>
+      <string key="Activity" value="examine thoroughly"/>
+      <string key="Resource" value="Sean"/>
+      <string key="Costs" value="400"/>
+    </event>
+    <event>
+      <string key="concept:name" value="check ticket"/>
+      <string key="org:resource" value="Pete"/>
+      <date key="time:timestamp" value="2011-01-08T11:43:00.000+01:00"/>
+      <string key="Activity" value="check ticket"/>
+      <string key="Resource" value="Pete"/>
+      <string key="Costs" value="100"/>
+    </event>
+    <event>
+      <string key="concept:name" value="decide"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-09T09:55:00.000+01:00"/>
+      <string key="Activity" value="decide"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="pay compensation"/>
+      <string key="org:resource" value="Ellen"/>
+      <date key="time:timestamp" value="2011-01-15T10:45:00.000+01:00"/>
+      <string key="Activity" value="pay compensation"/>
+      <string key="Resource" value="Ellen"/>
+      <string key="Costs" value="200"/>
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="2"/>
+    <string key="creator" value="Fluxicon Nitro"/>
+    <event>
+      <string key="concept:name" value="register request"/>
+      <string key="org:resource" value="Mike"/>
+      <date key="time:timestamp" value="2010-12-30T11:32:00.000+01:00"/>
+      <string key="Activity" value="register request"/>
+      <string key="Resource" value="Mike"/>
+      <string key="Costs" value="50"/>
+    </event>
+    <event>
+      <string key="concept:name" value="check ticket"/>
+      <string key="org:resource" value="Mike"/>
+      <date key="time:timestamp" value="2010-12-30T12:12:00.000+01:00"/>
+      <string key="Activity" value="check ticket"/>
+      <string key="Resource" value="Mike"/>
+      <string key="Costs" value="100"/>
+    </event>
+    <event>
+      <string key="concept:name" value="examine casually"/>
+      <string key="org:resource" value="Sean"/>
+      <date key="time:timestamp" value="2010-12-30T14:16:00.000+01:00"/>
+      <string key="Activity" value="examine casually"/>
+      <string key="Resource" value="Sean"/>
+      <string key="Costs" value="400"/>
+    </event>
+    <event>
+      <string key="concept:name" value="decide"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-05T11:22:00.000+01:00"/>
+      <string key="Activity" value="decide"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="pay compensation"/>
+      <string key="org:resource" value="Ellen"/>
+      <date key="time:timestamp" value="2011-01-08T12:05:00.000+01:00"/>
+      <string key="Activity" value="pay compensation"/>
+      <string key="Resource" value="Ellen"/>
+      <string key="Costs" value="200"/>
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="1"/>
+    <string key="creator" value="Fluxicon Nitro"/>
+    <event>
+      <string key="concept:name" value="register request"/>
+      <string key="org:resource" value="Pete"/>
+      <date key="time:timestamp" value="2010-12-30T11:02:00.000+01:00"/>
+      <string key="Activity" value="register request"/>
+      <string key="Resource" value="Pete"/>
+      <string key="Costs" value="50"/>
+    </event>
+    <event>
+      <string key="concept:name" value="examine thoroughly"/>
+      <string key="org:resource" value="Sue"/>
+      <date key="time:timestamp" value="2010-12-31T10:06:00.000+01:00"/>
+      <string key="Activity" value="examine thoroughly"/>
+      <string key="Resource" value="Sue"/>
+      <string key="Costs" value="400"/>
+    </event>
+    <event>
+      <string key="concept:name" value="check ticket"/>
+      <string key="org:resource" value="Mike"/>
+      <date key="time:timestamp" value="2011-01-05T15:12:00.000+01:00"/>
+      <string key="Activity" value="check ticket"/>
+      <string key="Resource" value="Mike"/>
+      <string key="Costs" value="100"/>
+    </event>
+    <event>
+      <string key="concept:name" value="decide"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-06T11:18:00.000+01:00"/>
+      <string key="Activity" value="decide"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="reject request"/>
+      <string key="org:resource" value="Pete"/>
+      <date key="time:timestamp" value="2011-01-07T14:24:00.000+01:00"/>
+      <string key="Activity" value="reject request"/>
+      <string key="Resource" value="Pete"/>
+      <string key="Costs" value="200"/>
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="6"/>
+    <string key="creator" value="Fluxicon Nitro"/>
+    <event>
+      <string key="concept:name" value="register request"/>
+      <string key="org:resource" value="Mike"/>
+      <date key="time:timestamp" value="2011-01-06T15:02:00.000+01:00"/>
+      <string key="Activity" value="register request"/>
+      <string key="Resource" value="Mike"/>
+      <string key="Costs" value="50"/>
+    </event>
+    <event>
+      <string key="concept:name" value="examine casually"/>
+      <string key="org:resource" value="Ellen"/>
+      <date key="time:timestamp" value="2011-01-06T16:06:00.000+01:00"/>
+      <string key="Activity" value="examine casually"/>
+      <string key="Resource" value="Ellen"/>
+      <string key="Costs" value="400"/>
+    </event>
+    <event>
+      <string key="concept:name" value="check ticket"/>
+      <string key="org:resource" value="Mike"/>
+      <date key="time:timestamp" value="2011-01-07T16:22:00.000+01:00"/>
+      <string key="Activity" value="check ticket"/>
+      <string key="Resource" value="Mike"/>
+      <string key="Costs" value="100"/>
+    </event>
+    <event>
+      <string key="concept:name" value="decide"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-07T16:52:00.000+01:00"/>
+      <string key="Activity" value="decide"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="pay compensation"/>
+      <string key="org:resource" value="Mike"/>
+      <date key="time:timestamp" value="2011-01-16T11:47:00.000+01:00"/>
+      <string key="Activity" value="pay compensation"/>
+      <string key="Resource" value="Mike"/>
+      <string key="Costs" value="200"/>
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="5"/>
+    <string key="creator" value="Fluxicon Nitro"/>
+    <event>
+      <string key="concept:name" value="register request"/>
+      <string key="org:resource" value="Ellen"/>
+      <date key="time:timestamp" value="2011-01-06T09:02:00.000+01:00"/>
+      <string key="Activity" value="register request"/>
+      <string key="Resource" value="Ellen"/>
+      <string key="Costs" value="50"/>
+    </event>
+    <event>
+      <string key="concept:name" value="examine casually"/>
+      <string key="org:resource" value="Mike"/>
+      <date key="time:timestamp" value="2011-01-07T10:16:00.000+01:00"/>
+      <string key="Activity" value="examine casually"/>
+      <string key="Resource" value="Mike"/>
+      <string key="Costs" value="400"/>
+    </event>
+    <event>
+      <string key="concept:name" value="check ticket"/>
+      <string key="org:resource" value="Pete"/>
+      <date key="time:timestamp" value="2011-01-08T11:22:00.000+01:00"/>
+      <string key="Activity" value="check ticket"/>
+      <string key="Resource" value="Pete"/>
+      <string key="Costs" value="100"/>
+    </event>
+    <event>
+      <string key="concept:name" value="decide"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-10T13:28:00.000+01:00"/>
+      <string key="Activity" value="decide"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="reinitiate request"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-11T16:18:00.000+01:00"/>
+      <string key="Activity" value="reinitiate request"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="check ticket"/>
+      <string key="org:resource" value="Ellen"/>
+      <date key="time:timestamp" value="2011-01-14T14:33:00.000+01:00"/>
+      <string key="Activity" value="check ticket"/>
+      <string key="Resource" value="Ellen"/>
+      <string key="Costs" value="100"/>
+    </event>
+    <event>
+      <string key="concept:name" value="examine casually"/>
+      <string key="org:resource" value="Mike"/>
+      <date key="time:timestamp" value="2011-01-16T15:50:00.000+01:00"/>
+      <string key="Activity" value="examine casually"/>
+      <string key="Resource" value="Mike"/>
+      <string key="Costs" value="400"/>
+    </event>
+    <event>
+      <string key="concept:name" value="decide"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-19T11:18:00.000+01:00"/>
+      <string key="Activity" value="decide"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="reinitiate request"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-20T12:48:00.000+01:00"/>
+      <string key="Activity" value="reinitiate request"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="examine casually"/>
+      <string key="org:resource" value="Sue"/>
+      <date key="time:timestamp" value="2011-01-21T09:06:00.000+01:00"/>
+      <string key="Activity" value="examine casually"/>
+      <string key="Resource" value="Sue"/>
+      <string key="Costs" value="400"/>
+    </event>
+    <event>
+      <string key="concept:name" value="check ticket"/>
+      <string key="org:resource" value="Pete"/>
+      <date key="time:timestamp" value="2011-01-21T11:34:00.000+01:00"/>
+      <string key="Activity" value="check ticket"/>
+      <string key="Resource" value="Pete"/>
+      <string key="Costs" value="100"/>
+    </event>
+    <event>
+      <string key="concept:name" value="decide"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-23T13:12:00.000+01:00"/>
+      <string key="Activity" value="decide"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="reject request"/>
+      <string key="org:resource" value="Mike"/>
+      <date key="time:timestamp" value="2011-01-24T14:56:00.000+01:00"/>
+      <string key="Activity" value="reject request"/>
+      <string key="Resource" value="Mike"/>
+      <string key="Costs" value="200"/>
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="4"/>
+    <string key="creator" value="Fluxicon Nitro"/>
+    <event>
+      <string key="concept:name" value="register request"/>
+      <string key="org:resource" value="Pete"/>
+      <date key="time:timestamp" value="2011-01-06T15:02:00.000+01:00"/>
+      <string key="Activity" value="register request"/>
+      <string key="Resource" value="Pete"/>
+      <string key="Costs" value="50"/>
+    </event>
+    <event>
+      <string key="concept:name" value="check ticket"/>
+      <string key="org:resource" value="Mike"/>
+      <date key="time:timestamp" value="2011-01-07T12:06:00.000+01:00"/>
+      <string key="Activity" value="check ticket"/>
+      <string key="Resource" value="Mike"/>
+      <string key="Costs" value="100"/>
+    </event>
+    <event>
+      <string key="concept:name" value="examine thoroughly"/>
+      <string key="org:resource" value="Sean"/>
+      <date key="time:timestamp" value="2011-01-08T14:43:00.000+01:00"/>
+      <string key="Activity" value="examine thoroughly"/>
+      <string key="Resource" value="Sean"/>
+      <string key="Costs" value="400"/>
+    </event>
+    <event>
+      <string key="concept:name" value="decide"/>
+      <string key="org:resource" value="Sara"/>
+      <date key="time:timestamp" value="2011-01-09T12:02:00.000+01:00"/>
+      <string key="Activity" value="decide"/>
+      <string key="Resource" value="Sara"/>
+      <string key="Costs" value="200"/>
+    </event>
+    <event>
+      <string key="concept:name" value="reject request"/>
+      <string key="org:resource" value="Ellen"/>
+      <date key="time:timestamp" value="2011-01-12T15:44:00.000+01:00"/>
+      <string key="Activity" value="reject request"/>
+      <string key="Resource" value="Ellen"/>
+      <string key="Costs" value="200"/>
+    </event>
+  </trace>
 </log>

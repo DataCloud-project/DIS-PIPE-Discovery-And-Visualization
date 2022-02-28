@@ -970,7 +970,7 @@ function getMap(bool) {
 <script>
 function reqListener1 () {
   document.getElementById("digraphF").innerHTML = this.responseText;
-  getMap(false);
+  //getMap(false);
 }
 
 function freqRequest() {
@@ -1002,12 +1002,12 @@ function request(p_check) {
 	}
 	
 	oReq.send();
-
+	getMap(false);
 }
 
 function reqListener2 () {
   document.getElementById("digraphP").innerHTML = this.responseText;
-  getMap(false);
+  //getMap(false);
 }
 
 function perfRequest() {
@@ -1019,7 +1019,7 @@ function perfRequest() {
 
 freqRequest();
 perfRequest();	
-
+//getMap(false);
 /*
 function reqListener3 () {
   document.getElementById("petriFreq").innerHTML = this.responseText;
