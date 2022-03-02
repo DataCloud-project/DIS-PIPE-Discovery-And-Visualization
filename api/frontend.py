@@ -39,7 +39,7 @@ with open('../properties.txt') as f:
 f.close()
   
 @app.route('/', methods=['GET'])
-def home():
+def home(file):
  
     return render_template("index.html", \
         stringF = "", \
@@ -51,7 +51,8 @@ def home():
         myPathP_init = "100", \
         myActP_init = "100", \
         perf_checked = "false" , \
-        path = http) 
+        path = http, \
+        filename = file) 
     
     
 @app.route('/start', methods=['GET', 'POST'])
@@ -73,7 +74,7 @@ def upload_file():
     print("empty")
   #f.save("event logs/" + f.filename)
   f.save("event logs/running-example.xes")
-  return home()
+  return home(f.filename)
   #return redirect("http://127.0.0.1:8080", code=200)
 
 @app.route('/petriFreq', methods=['GET', 'POST'])
@@ -135,7 +136,7 @@ def dfgFreqReduced():
         if f.filename != '': 
           #f.save("event logs/" + f.filename)
           f.save("event logs/running-example.xes")
-          return home()      
+          return home(f.filename)      
       
         
     return str(f.text)
@@ -165,7 +166,7 @@ def dfgPerfReduced():
         if f.filename != '': 
           #f.save("event logs/" + f.filename)
           f.save("event logs/running-example.xes")
-          return home()      
+          return home(f.filename)      
       
         
   

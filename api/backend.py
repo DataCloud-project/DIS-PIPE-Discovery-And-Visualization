@@ -25,6 +25,8 @@ from pm4py.objects.conversion.process_tree import converter
 from pm4py.algo.filtering.log.start_activities import start_activities_filter
 from pm4py.algo.filtering.log.end_activities import end_activities_filter
 from pm4py.algo.discovery.footprints import algorithm as footprints_discovery
+from pm4py.objects.log.util import interval_lifecycle
+from pm4py.util import constants
 #log = xes_importer.apply('event logs\\running-example.xes')
 
 
@@ -41,10 +43,18 @@ with open('../properties.txt') as f:
     #print(port_n)
     
 f.close()
-    
+
+import platform
+if platform.system() == "Windows":
+        log_path = 'event logs\\running-example.xes'
+if platform.system() == "Linux":
+        log_path = 'event logs/running-example.xes'
 @app.route('/dfgFrequency', methods=['GET'])
 def dfgFrequency():
     log = xes_importer.apply('event logs\\running-example.xes')
+    log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
+                                                            constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
+                                                            constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
     
     #DFG - process discovery
     #dfg_freq = dfg_discovery.apply(log)
@@ -69,6 +79,9 @@ def dfgFrequency():
 @app.route('/dfgPerformance', methods=['GET'])
 def dfgPerformance():
     log = xes_importer.apply('event logs\\running-example.xes')   
+    log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
+                                                            constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
+                                                            constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
     #DFG - process discovery
     #dfg_perf = dfg_discovery.apply(log, variant=dfg_discovery.Variants.PERFORMANCE)
     #parameters = {dfg_visualization.Variants.PERFORMANCE.value.Parameters.FORMAT: "svg"}
@@ -96,6 +109,9 @@ def dfgPerformance():
 @app.route('/dfgFreqReduced', methods=['GET', 'POST'])
 def dfgFreqReduced():
     log = xes_importer.apply('event logs\\running-example.xes')
+    log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
+                                                            constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
+                                                            constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
     #print(type(request.args.get('myPahtF')))
     
     # GET
@@ -110,26 +126,24 @@ def dfgFreqReduced():
     else:
         path = int(request.args.get('myPathF'))
     #print("Freq: "+str(act)+" "+str(path))
-    
-    if (act==100 and path ==100):
-        dfg, start_activities, end_activities = pm4py.discover_dfg(log)
-        parameters = dfg_visualization.Variants.FREQUENCY.value.Parameters
-        gviz_f = dfg_visualization.apply(dfg, log=log, variant=dfg_visualization.Variants.FREQUENCY,
-                                            parameters={parameters.FORMAT: "svg", parameters.START_ACTIVITIES: start_activities,
-                                                parameters.END_ACTIVITIES: end_activities})
-    
-    else:
-        dfg_f, sa_f, ea_f = pm4py.discover_directly_follows_graph(log)
-        activities_count_f = pm4py.get_event_attribute_values(log, "concept:name")
-        dfg_f, sa_f, ea_f, activities_count_f = dfg_filtering.filter_dfg_on_activities_percentage(dfg_f, sa_f, ea_f, activities_count_f, act/100)
-        dfg_f, sa_f, ea_f, activities_count_f = dfg_filtering.filter_dfg_on_paths_percentage(dfg_f, sa_f, ea_f, activities_count_f, path/100)
-        gviz_f = dfg_visualization.apply(dfg_f, log=log, variant=dfg_visualization.Variants.FREQUENCY)
-    
+
+    dfg_f, sa_f, ea_f = pm4py.discover_directly_follows_graph(log)
+    parameters = dfg_visualization.Variants.FREQUENCY.value.Parameters
+    activities_count_f = pm4py.get_event_attribute_values(log, "concept:name")
+    dfg_f, sa_f, ea_f, activities_count_f = dfg_filtering.filter_dfg_on_activities_percentage(dfg_f, sa_f, ea_f, activities_count_f, act/100)
+    dfg_f, sa_f, ea_f, activities_count_f = dfg_filtering.filter_dfg_on_paths_percentage(dfg_f, sa_f, ea_f, activities_count_f, path/100)
+    gviz_f = dfg_visualization.apply(dfg_f, log=log, variant=dfg_visualization.Variants.FREQUENCY,
+                                            parameters={parameters.FORMAT: "svg", parameters.START_ACTIVITIES: sa_f,
+                                                parameters.END_ACTIVITIES: ea_f})
+
     return str(gviz_f)
 
 @app.route('/dfgPerfReduced', methods=['GET', 'POST'])
 def dfgPerfReduced():
     log = xes_importer.apply('event logs\\running-example.xes')
+    log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
+                                                            constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
+                                                            constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
     #print(type(request.args.get('myPahtF')))
     
     # GET
@@ -145,20 +159,15 @@ def dfgPerfReduced():
         path = int(request.args.get('myPathP'))
     #print("Perf: "+str(act)+" "+str(path))
     
-    if (act ==100 and path ==100):
-        dfg, start_activities, end_activities = pm4py.discover_dfg(log)
-        parameters = dfg_visualization.Variants.PERFORMANCE.value.Parameters
-        gviz_f = dfg_visualization.apply(dfg, log=log, variant=dfg_visualization.Variants.PERFORMANCE,
-                                            parameters={parameters.FORMAT: "svg", parameters.START_ACTIVITIES: start_activities,
-                                                parameters.END_ACTIVITIES: end_activities})
-    
-    else:
-        dfg_p, sa_p, ea_p = pm4py.discover_directly_follows_graph(log)
-        activities_count_p = pm4py.get_event_attribute_values(log, "concept:name")
-        dfg_p, sa_p, ea_p, activities_count_p = dfg_filtering.filter_dfg_on_activities_percentage(dfg_p, sa_p, ea_p, activities_count_p, act/100)
-        dfg_p, sa_p, ea_p, activities_count_p = dfg_filtering.filter_dfg_on_paths_percentage(dfg_p, sa_p, ea_p, activities_count_p, path/100)
-        parameters = {dfg_visualization.Variants.PERFORMANCE.value.Parameters.FORMAT: "svg"}
-        gviz_f = dfg_visualization.apply(dfg_p, log=log, variant=dfg_visualization.Variants.PERFORMANCE, parameters=parameters)
+
+    dfg_p, sa_p, ea_p = pm4py.discover_directly_follows_graph(log)
+    parameters = dfg_visualization.Variants.PERFORMANCE.value.Parameters
+    activities_count_p = pm4py.get_event_attribute_values(log, "concept:name")
+    dfg_p, sa_p, ea_p, activities_count_p = dfg_filtering.filter_dfg_on_activities_percentage(dfg_p, sa_p, ea_p, activities_count_p, act/100)
+    dfg_p, sa_p, ea_p, activities_count_p = dfg_filtering.filter_dfg_on_paths_percentage(dfg_p, sa_p, ea_p, activities_count_p, path/100)
+    gviz_f = dfg_visualization.apply(dfg_p, log=log, variant=dfg_visualization.Variants.PERFORMANCE, 
+                                            parameters={parameters.FORMAT: "svg", parameters.START_ACTIVITIES: sa_p,
+                                                parameters.END_ACTIVITIES: ea_p})
     
     return str(gviz_f)
 
