@@ -37,9 +37,14 @@ with open('../properties.txt') as f:
     #print(port_n)
     
 f.close()
-  
-@app.route('/', methods=['GET'])
-def home():
+
+import platform
+if platform.system() == "Windows":
+        log_path = 'event logs\\running-example.xes'
+if platform.system() == "Linux":
+        log_path = 'event logs/running-example.xes'
+
+def home(file):
  
     return render_template("index.html", \
         stringF = "", \
@@ -51,7 +56,13 @@ def home():
         myPathP_init = "100", \
         myActP_init = "100", \
         perf_checked = "false" , \
-        path = http) 
+        path = http, \
+        filename = file) 
+    
+@app.route('/', methods=['GET'])
+def index():
+    filename = 'running-example.xes'
+    return home(filename)
     
     
 @app.route('/start', methods=['GET', 'POST'])
@@ -72,8 +83,8 @@ def upload_file():
   if f.filename == '':
     print("empty")
   #f.save("event logs/" + f.filename)
-  f.save("event logs/running-example.xes")
-  return home()
+  f.save(log_path)
+  return home(f.filename)
   #return redirect("http://127.0.0.1:8080", code=200)
 
 @app.route('/petriFreq', methods=['GET', 'POST'])
@@ -134,8 +145,8 @@ def dfgFreqReduced():
         f = request.files['file']
         if f.filename != '': 
           #f.save("event logs/" + f.filename)
-          f.save("event logs/running-example.xes")
-          return home()      
+          f.save(log_path)
+          return home(f.filename)      
       
         
     return str(f.text)
@@ -164,8 +175,8 @@ def dfgPerfReduced():
         f = request.files['file']
         if f.filename != '': 
           #f.save("event logs/" + f.filename)
-          f.save("event logs/running-example.xes")
-          return home()      
+          f.save(log_path)
+          return home(f.filename)      
       
         
   
