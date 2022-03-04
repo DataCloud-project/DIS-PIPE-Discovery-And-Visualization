@@ -125,12 +125,13 @@ function checkRefresh()
 			
 				<div class="text-content">
 					<div class="map text" id="map-text">
-					 	<div class="title"> Map Content</div>
+					 	<div class="title" style="float: left"> Map Content</div>
 						<p id='digraphF' style='display:none'>{{ stringF }}</p>
 						<p id='digraphP' style='display:none'>{{ stringP }}</p>
 						<p id='petriFreq' style='display:none'>Try</p>
 						<p id='petriPerf' style='display:none'>Try</p>
 						<p id='bpmn' style='display:none'>Try</p>
+						<p id='mapTitle' style="text-align: center;">{{ filename }}</p>
 						<p id='median' style='display:none'>{{ median }}</p>
 						<p id='total' style='display:none'>{{ total }}</p>
 						
@@ -653,16 +654,36 @@ function getGraphNodes(graphText){
 	for (var i=0; i<graphText.length; i++){
 		// if this element has no '->' in the string, it's a node
 		if (graphText[i].search('->') == -1){
-			// save it into the nodes array, remove useless info from the string and increment j
-			// final array has two elements, (0):ID and (1):label
-			graphNodes[j] = graphText[i].split(' [');
-			graphNodes[j][1] = graphNodes[j][1].split('" ').shift().split('"').pop();
-			// if additional info about performance of frequency are not useful 
-			// add .split(' (').shift() to the previous line of code
-			graphNodes[j][2] = graphNodes[j][1].split('(').pop().split(')').shift();
-			graphNodes[j][1] = graphNodes[j][1].split('(').shift();
-			graphNodes[j][1] = graphNodes[j][1].substring(0, graphNodes[j][1].length-1);
-			j++;
+			// if the current element is START
+			if (graphText[i].search('\"@@startnode\"') != -1){
+				// \"@@startnode\" [label=\"@@S\" fillcolor=\"#32CD32\" fontcolor=\"#32CD32\" shape=circle style=filled]"
+				graphNodes[j] = graphText[i].split('\"').splice(1,1);
+				graphNodes[j][1] = 'start';
+				graphNodes[j][2] = '';
+				graphNodes[j][3] = '';
+				j++;
+			}
+			// if the current element is END
+			else if (graphText[i].search('\"@@endnode\"') != -1){
+				graphNodes[j] = graphText[i].split('\"').splice(1,1);
+				graphNodes[j][1] = 'end';
+				graphNodes[j][2] = '';
+				graphNodes[j][3] = '';
+				j++;
+			}
+			// otherwise
+			else{
+				// save it into the nodes array, remove useless info from the string and increment j
+				// final array has two elements, (0):ID and (1):label
+				graphNodes[j] = graphText[i].split(' [');
+				graphNodes[j][1] = graphNodes[j][1].split('" ').shift().split('"').pop();
+				// if additional info about performance of frequency are not useful 
+				// add .split(' (').shift() to the previous line of code
+				graphNodes[j][2] = graphNodes[j][1].split('(').pop().split(')').shift();
+				graphNodes[j][1] = graphNodes[j][1].split('(').shift();
+				graphNodes[j][1] = graphNodes[j][1].substring(0, graphNodes[j][1].length-1);
+				j++;
+			}
 		}	
 	}
 	
@@ -675,7 +696,7 @@ function getCombinedNodes(graphNodesF, graphNodesP){
 	return graphNodesF;
 }
 
-function getGraphEdges(graphText){
+function getGraphEdges(graphText, boolFreq){
 	//obtain the array of edges with parameter
 	var graphEdges = [];
 	var j = 0;
@@ -689,9 +710,16 @@ function getGraphEdges(graphText){
 			graphEdges[j][0] = graphEdges[j][0].split(' -> ');
 			graphEdges[j][1] = graphEdges[j][0].pop();
 			graphEdges[j][0] = graphEdges[j][0].shift();
-			if (document.querySelector('input[name="mytabs"]:checked').value != 'frequency'){
+			if (boolFreq){
 				graphEdges[j][2] = graphEdges[j][2].split('\"').splice(1,1);
 				graphEdges[j][2] = graphEdges[j][2].shift();
+			}
+			if (graphEdges[j][0] == '\"@@startnode\"' || graphEdges[j][1] =='\"@@endnode\"'){
+				if (graphEdges[j][0].search('\"') != -1)
+					graphEdges[j][0] = graphEdges[j][0].split('\"').splice(1,1).shift();
+				if (graphEdges[j][1].search('\"') != -1)
+					graphEdges[j][1] = graphEdges[j][1].split('\"').splice(1,1).shift();
+				graphEdges[j][2] = '';
 			}
 			j++;
 		}	
@@ -702,7 +730,7 @@ function getGraphEdges(graphText){
 
 function getCombinedEdges(graphEdgesF, graphEdgesP){
 	for (var i=0; i<graphEdgesF.length; i++){
-		graphEdgesF[i][3] = graphEdgesP[i][2].split('\"').splice(1,1).shift();
+		graphEdgesF[i][3] = graphEdgesP[i][2];
 		
 	}
 	return graphEdgesF;
@@ -726,8 +754,8 @@ function getLabeledGraphEdges(graphNodes, graphEdges){
 function getDslSteps(graphNodes, graphEdges){
 	// from graphNodes and graphEdges get a unique matrix ready for conversion
 	var dslSteps = [];
-	// for each node NB: length-2 is to remove start and end activities!
-	for (var i=0; i<graphNodes.length-2; i++){
+	// for each node 
+	for (var i=0; i<graphNodes.length; i++){
 		// save info about the node
 		dslSteps[i] = [];
 		dslSteps[i].push([graphNodes[i][1], graphNodes[i][2], graphNodes[i][3]]);
@@ -772,7 +800,8 @@ function exportDsl(){
 	var predecessors = [];
 	var parameters = [];
 	var count = [];
-	var dsl = 'Pipeline DiscoveryResult{\n';
+	var pipelineName = document.getElementById('mapTitle').innerHTML.replace('.xes', '');
+	var dsl = 'Pipeline ' + pipelineName +'{\n';
 	
 	for (var i=0; i<dslSteps.length; i++){
 		predecessors[i] = '';
@@ -796,12 +825,14 @@ function exportDsl(){
 			if (count[i]>1)
 				dsl = dsl + '\n\t\t\t]';
 		}
-		dsl = dsl + '\n\t\t\tEnvironmentParameters:\n' + parameters[i] + '\n';
+		if (dslSteps[i][0][0] == 'start' || dslSteps[i][0][0] == 'end')
+			dsl = dsl + '\n';
+		else
+			dsl = dsl + '\n\t\t\tEnvironmentParameters:\n' + parameters[i] + '\n';
 	}
 	dsl = dsl + '\}';
 	// return the dsl
-	console.log(count);
-	download(dsl, 'discovered_dsl', 'txt');
+	download(dsl, pipelineName, 'txt');
 }
 
 </script>
@@ -822,30 +853,26 @@ function getMap(bool) {
 			graphNodesP = getGraphNodes(graphTextP);
 			graphNodes = getCombinedNodes(graphNodesF, graphNodesP);
 			// get edges in an array
-			graphEdgesF = getGraphEdges(graphTextF);
-			graphEdgesP = getGraphEdges(graphTextP);
+			graphEdgesF = getGraphEdges(graphTextF, false);
+			graphEdgesP = getGraphEdges(graphTextP, true);
 			graphEdges = getCombinedEdges(graphEdgesF, graphEdgesP);
 			getLabeledGraphEdges(graphNodes, graphEdges);
 			// get final matrix ready for dsl conversion
 			dslSteps = getDslSteps(graphNodes, graphEdges);
 			// debug
-			console.log('GraphTextF:');
+			/*console.log('GraphTextF:');
 			console.log(graphTextF);
 			console.log('GraphTextP:');
-			console.log(graphTextP);/*
-			console.log('GraphNodesP:');
-			console.log(graphNodesP);
-			console.log('GraphNodesF:');
-			console.log(graphNodesF);
-			console.log('GraphNodes:');
-			console.log(graphNodes);
-			console.log('GraphEdgesP:');
-			console.log(graphEdgesP);
+			console.log(graphTextP);
 			console.log('GraphEdgesF:');
 			console.log(graphEdgesF);
-			console.log('GraphEdges:');
+			console.log('GraphEdgesP:');
+			console.log(graphEdgesP);*/
+			console.log('GraphNodes:');
+			console.log(graphNodes);
+			console.log('LabeledGraphEdges:');
 			console.log(graphEdges);
-			console.log('dslSteps:');*/
+			console.log('DSL:');
 			console.log(dslSteps);
 		}
 		//DARIO END
@@ -970,7 +997,7 @@ function getMap(bool) {
 <script>
 function reqListener1 () {
   document.getElementById("digraphF").innerHTML = this.responseText;
-  getMap(false);
+  //getMap(false);
 }
 
 function freqRequest() {
@@ -1002,12 +1029,12 @@ function request(p_check) {
 	}
 	
 	oReq.send();
-
+	getMap(false);
 }
 
 function reqListener2 () {
   document.getElementById("digraphP").innerHTML = this.responseText;
-  getMap(false);
+  //getMap(false);
 }
 
 function perfRequest() {
@@ -1019,7 +1046,7 @@ function perfRequest() {
 
 freqRequest();
 perfRequest();	
-
+//getMap(false);
 /*
 function reqListener3 () {
   document.getElementById("petriFreq").innerHTML = this.responseText;
