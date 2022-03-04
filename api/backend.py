@@ -27,7 +27,7 @@ from pm4py.algo.filtering.log.end_activities import end_activities_filter
 from pm4py.algo.discovery.footprints import algorithm as footprints_discovery
 from pm4py.objects.log.util import interval_lifecycle
 from pm4py.util import constants
-#log = xes_importer.apply('event logs\\running-example.xes')
+#log = xes_importer.apply(log_path)
 
 
 with open('../properties.txt') as f:
@@ -49,9 +49,10 @@ if platform.system() == "Windows":
         log_path = 'event logs\\running-example.xes'
 if platform.system() == "Linux":
         log_path = 'event logs/running-example.xes'
+        
 @app.route('/dfgFrequency', methods=['GET'])
 def dfgFrequency():
-    log = xes_importer.apply('event logs\\running-example.xes')
+    log = xes_importer.apply(log_path)
     log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
                                                             constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
                                                             constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
@@ -78,7 +79,7 @@ def dfgFrequency():
 
 @app.route('/dfgPerformance', methods=['GET'])
 def dfgPerformance():
-    log = xes_importer.apply('event logs\\running-example.xes')   
+    log = xes_importer.apply(log_path)   
     log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
                                                             constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
                                                             constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
@@ -108,7 +109,7 @@ def dfgPerformance():
 
 @app.route('/dfgFreqReduced', methods=['GET', 'POST'])
 def dfgFreqReduced():
-    log = xes_importer.apply('event logs\\running-example.xes')
+    log = xes_importer.apply(log_path)
     log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
                                                             constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
                                                             constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
@@ -140,7 +141,7 @@ def dfgFreqReduced():
 
 @app.route('/dfgPerfReduced', methods=['GET', 'POST'])
 def dfgPerfReduced():
-    log = xes_importer.apply('event logs\\running-example.xes')
+    log = xes_importer.apply(log_path)
     log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
                                                             constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
                                                             constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
@@ -173,7 +174,7 @@ def dfgPerfReduced():
 
 @app.route('/petriNetFreq', methods=['GET'])
 def petriNetFreq():
-    log = xes_importer.apply('event logs\\running-example.xes')
+    log = xes_importer.apply(log_path)
     
     net, initial_marking, final_marking = inductive_miner.apply(log)
     parameters = {pn_visualizer.Variants.FREQUENCY.value.Parameters.FORMAT: "png"}
@@ -183,7 +184,7 @@ def petriNetFreq():
     
 @app.route('/petriNetPerf', methods=['GET'])
 def petriNetPerf():
-    log = xes_importer.apply('event logs\\running-example.xes')
+    log = xes_importer.apply(log_path)
     
     net, initial_marking, final_marking = inductive_miner.apply(log)
     parameters = {pn_visualizer.Variants.PERFORMANCE.value.Parameters.FORMAT: "png"}
@@ -193,7 +194,7 @@ def petriNetPerf():
     
 @app.route('/bpmn', methods=['GET'])
 def bpmn():
-    log = xes_importer.apply('event logs\\running-example.xes')
+    log = xes_importer.apply(log_path)
     
     tree = pm4py.discover_process_tree_inductive(log)
     bpmn_graph = converter.apply(tree, variant=converter.Variants.TO_BPMN)
@@ -203,7 +204,7 @@ def bpmn():
 
 @app.route('/start', methods=['GET'])
 def start():
-    log = xes_importer.apply('event logs\\running-example.xes')
+    log = xes_importer.apply(log_path)
     
     log_start = start_activities_filter.get_start_activities(log)
     
@@ -211,7 +212,7 @@ def start():
     
 @app.route('/end', methods=['GET'])
 def end():
-    log = xes_importer.apply('event logs\\running-example.xes')
+    log = xes_importer.apply(log_path)
     
     end_activities = end_activities_filter.get_end_activities(log)
     
@@ -222,7 +223,7 @@ def median():
     #MEDIAN CASE
     from pm4py.statistics.traces.generic.log import case_statistics
     import time
-    log = xes_importer.apply('event logs\\running-example.xes')
+    log = xes_importer.apply(log_path)
     median_case_duration = case_statistics.get_median_case_duration(log, parameters={
         case_statistics.Parameters.TIMESTAMP_KEY: "time:timestamp"
     })
@@ -233,7 +234,7 @@ def total():
     #ALL CASES
     from pm4py.statistics.traces.generic.log import case_statistics
     import time
-    log = xes_importer.apply('event logs\\running-example.xes')
+    log = xes_importer.apply(log_path)
     all_case_durations = case_statistics.get_all_case_durations(log, parameters={
         case_statistics.Parameters.TIMESTAMP_KEY: "time:timestamp"})
     total = 0
