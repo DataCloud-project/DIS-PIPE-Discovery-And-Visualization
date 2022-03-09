@@ -68,13 +68,13 @@ def index():
 @app.route('/start', methods=['GET', 'POST'])
 def start():
     
-    start =requests.get(path+'start')
+    start =requests.get(path.strip('\n')+'start')
     return start.text
 
 @app.route('/end', methods=['GET', 'POST'])
 def end():
     
-    end =requests.get(path+'end')
+    end =requests.get(path.strip('\n')+'end')
     return end.text
 
 @app.route('/', methods = ['POST'])
@@ -90,32 +90,32 @@ def upload_file():
 @app.route('/petriFreq', methods=['GET', 'POST'])
 def petriFreq():
     
-    petriF = requests.get(path+'petriNetFreq')
+    petriF = requests.get(path.strip('\n')+'petriNetFreq')
 
     return str(petriF.text)
     
 @app.route('/petriPerf', methods=['GET', 'POST'])
 def petriPerf():
     
-    petriP = requests.get(path+'petriNetPerf')
+    petriP = requests.get(path.strip('\n')+'petriNetPerf')
 
     return str(petriP.text)
     
 @app.route('/bpmn', methods=['GET', 'POST'])
 def bpmn():
     
-    bpmn = requests.get(path+'bpmn')
+    bpmn = requests.get(path.strip('\n')+'bpmn')
 
     return str(bpmn.text)
     
 @app.route('/dfgFrequency', methods=['GET', 'POST'])
 def dfgFrequency():
-    f = requests.get(path+'dfgFrequency')
+    f = requests.get(path.strip('\n')+'dfgFrequency')
     return str(f.text)
     
 @app.route('/dfgPerformance', methods=['GET', 'POST'])
 def dfgPerformance():
-    p = requests.get(path+'dfgPerformance')
+    p = requests.get(path.strip('\n')+'dfgPerformance')
     return str(p.text)
     
 @app.route('/dfgFreqReduced', methods=['GET', 'POST'])
@@ -138,7 +138,7 @@ def dfgFreqReduced():
     
     #path = request.args.get('myPathF')
     paramsF = {'myPathF' : myPathF, 'myActF' : myActF}
-    f = requests.get(path+'dfgFreqReduced', params = paramsF)
+    f = requests.get(path.strip('\n')+'dfgFreqReduced', params = paramsF)
 
     #if request.form.get('updated') != None:
     if request.args.get('updated') != None:
@@ -168,7 +168,7 @@ def dfgPerfReduced():
     
     #path = request.args.get('myPathF')
     paramsP = {'myPathP' : myPathP, 'myActP' : myActP}
-    p = requests.get(path+'dfgPerfReduced', params = paramsP)
+    p = requests.get(path.strip('\n')+'dfgPerfReduced', params = paramsP)
 
     #print(request.form.get('updated'))
     if request.form.get('updated') != None:
