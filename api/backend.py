@@ -26,6 +26,7 @@ from pm4py.algo.filtering.log.start_activities import start_activities_filter
 from pm4py.algo.filtering.log.end_activities import end_activities_filter
 from pm4py.algo.discovery.footprints import algorithm as footprints_discovery
 from pm4py.objects.log.util import interval_lifecycle
+from pm4py.algo.filtering.log.variants import variants_filter
 from pm4py.util import constants
 #log = xes_importer.apply(log_path)
 
@@ -50,9 +51,7 @@ if platform.system() == "Windows":
 if platform.system() == "Linux":
         log_path = 'event logs/running-example.xes'
         
-@app.route('/dfgFrequency', methods=['GET'])
-def dfgFrequency():
-    log = xes_importer.apply(log_path)
+def createGraphF(log):
     log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
                                                             constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
                                                             constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
@@ -71,15 +70,10 @@ def dfgFrequency():
                                                 parameters.END_ACTIVITIES: end_activities})
     #dfg_visualization.save(gviz_freq, "static/images/frequency.png")
     #freq_img = os.path.join(app.config['UPLOAD_FOLDER'], 'frequency.png')
- 
     
-    #return render_template("index.html", img_freq = freq_img, img_perf = perf_img, string = str(gviz_freq))
+    return gviz_freq
     
-    return str(gviz_freq)
-
-@app.route('/dfgPerformance', methods=['GET'])
-def dfgPerformance():
-    log = xes_importer.apply(log_path)   
+def createGraphP(log):
     log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
                                                             constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
                                                             constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
@@ -105,11 +99,9 @@ def dfgPerformance():
     #frequency = render_template("img_freq.html", img_freq = freq_img)
     #performance = render_template("img_perf.html", img_perf = perf_img)
     
-    return str(gviz_perf)
-
-@app.route('/dfgFreqReduced', methods=['GET', 'POST'])
-def dfgFreqReduced():
-    log = xes_importer.apply(log_path)
+    return gviz_perf
+    
+def createGraphFReduced(log):
     log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
                                                             constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
                                                             constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
@@ -136,12 +128,10 @@ def dfgFreqReduced():
     gviz_f = dfg_visualization.apply(dfg_f, log=log, variant=dfg_visualization.Variants.FREQUENCY,
                                             parameters={parameters.FORMAT: "svg", parameters.START_ACTIVITIES: sa_f,
                                                 parameters.END_ACTIVITIES: ea_f})
+                                                
+    return gviz_f
 
-    return str(gviz_f)
-
-@app.route('/dfgPerfReduced', methods=['GET', 'POST'])
-def dfgPerfReduced():
-    log = xes_importer.apply(log_path)
+def createGraphPReduced(log):
     log = interval_lifecycle.assign_lead_cycle_time(log, parameters={
                                                             constants.PARAMETER_CONSTANT_START_TIMESTAMP_KEY: "start_timestamp",
                                                             constants.PARAMETER_CONSTANT_TIMESTAMP_KEY: "time:timestamp"})
@@ -169,9 +159,164 @@ def dfgPerfReduced():
     gviz_f = dfg_visualization.apply(dfg_p, log=log, variant=dfg_visualization.Variants.PERFORMANCE, 
                                             parameters={parameters.FORMAT: "svg", parameters.START_ACTIVITIES: sa_p,
                                                 parameters.END_ACTIVITIES: ea_p})
+                                                
+    return gviz_f
     
-    return str(gviz_f)
+        
+@app.route('/dfgFrequency', methods=['GET'])
+def dfgFrequency():
+    log = xes_importer.apply(log_path)
+    return str(createGraphF(log))
 
+@app.route('/dfgPerformance', methods=['GET'])
+def dfgPerformance():
+    log = xes_importer.apply(log_path)
+    return str(createGraphP(log))
+
+@app.route('/variants', methods=['GET'])
+def variants():
+    log = xes_importer.apply(log_path)
+
+    variants = variants_filter.get_variants(log)
+    variantsDict = '{'
+
+    j=-1
+    for var, trace in variants.items():
+
+        j =j+1
+        cases = len(trace)
+        for i in range(0, cases):
+            info = (list(variants.values())[j][i])
+            info = info.__getattribute__('attributes')
+            caseName = info['concept:name']
+
+            if("variant-index" in info):
+                varIndex = info['variant-index']
+                if (i == 0):
+                    variantsDict = variantsDict + '"' + str(varIndex) + '": ['
+            else:
+                variantsDict = variantsDict + '"' + str(j+1) + '": ['
+            variantsDict = variantsDict + '{"'+str(caseName)+'":['
+
+            for x in trace[i]:
+                timestamp = x['time:timestamp']
+                x['time:timestamp'] = str(timestamp)
+                stringX = str(x).replace("'",'"')
+                variantsDict = variantsDict + '' + stringX #+', '
+            variantsDict = variantsDict + ']}' # chiude ogni caso
+        variantsDict = variantsDict + ']' # chiude ogni variante
+    variantsDict = variantsDict + '}' # chiude tutto
+
+    variantsDict = variantsDict.replace("][","],[")
+    variantsDict = variantsDict.replace("}{","},{")
+    variantsDict = variantsDict.replace(']"','],"')
+
+    return variantsDict
+
+@app.route('/dfgFreqReduced', methods=['GET', 'POST'])
+def dfgFreqReduced():
+    log = xes_importer.apply(log_path)
+    return str(createGraphFReduced(log))
+
+@app.route('/dfgPerfReduced', methods=['GET', 'POST'])
+def dfgPerfReduced():
+    log = xes_importer.apply(log_path)
+    return str(createGraphPReduced(log))
+
+
+@app.route('/filter', methods=['GET', 'POST'])
+def filter():
+    log = xes_importer.apply(log_path)
+    from pm4py.algo.filtering.log.timestamp import timestamp_filter
+    from pm4py.algo.filtering.log.cases import case_filter
+    
+    # GET
+    if request.args.get('start') == None:
+        start = 0;
+    else:
+        start = request.args.get('start')
+    
+    if request.args.get('end') == None:
+        end = 0;
+    else:
+        end = request.args.get('end')
+
+    if request.args.get('min') == None:
+        min_sec = 0;
+    else:
+        min_sec = float(request.args.get('min'))
+    
+    if request.args.get('max') == None:
+        max_sec = 100*3,154e+7;
+    else:
+        max_sec = float(request.args.get('max'))
+        
+
+    if request.args.get('filterTime') == "true":
+        print("filter Timeframe active")
+        if request.args.get('timeframe') == 'contained':
+            print("contained")
+            filtered_log = timestamp_filter.filter_traces_contained(log, start, end)
+            log = filtered_log
+    
+        elif request.args.get('timeframe') == 'intersecting':
+            filtered_log = timestamp_filter.filter_traces_intersecting(log, start, end)
+            log = filtered_log
+    else:
+        print("Here we are. No filters TIMEFRAME")
+        filtered_log = log
+
+    if request.args.get('filterPerf') == "true":
+        print("filter performance active")
+        filtered_log = case_filter.filter_case_performance(log, min_sec, max_sec)
+        log = filtered_log
+    
+    else:
+        print("Here we are. No filters")
+        filtered_log = log
+
+    f = createGraphFReduced(filtered_log)
+    p = createGraphPReduced(filtered_log)
+    
+    variantsDict = '{'
+
+    cases = len(filtered_log)
+    j=0
+    for i in range(0, cases):
+        info = filtered_log[i].__getattribute__('attributes')
+        caseName = info['concept:name']
+
+        if ("variant-index" in info):
+            varIndex = info['variant-index']
+            if (i == 0):
+                variantsDict = variantsDict + '"' + str(varIndex) + '": ['
+        else:
+            variantsDict = variantsDict + '"' + str(j+1) + '": ['
+        
+        variantsDict = variantsDict + '{"' + str(caseName) + '":['
+
+        for x in filtered_log[i]:
+            timestamp = x['time:timestamp']
+            x['time:timestamp'] = str(timestamp)
+            stringX = str(x).replace("'", '"')
+            variantsDict = variantsDict + '' + stringX  # +', '
+        j=j+1
+        variantsDict = variantsDict + ']}'  # chiude ogni caso
+        if ("variant-index" not in info):
+            variantsDict = variantsDict + ']' # chiude ogni variante
+    if ("variant-index" in info):
+        variantsDict = variantsDict + ']' # chiude ogni variante
+    variantsDict = variantsDict + '}' # chiude tutto
+
+    variantsDict = variantsDict.replace("][","],[")
+    variantsDict = variantsDict.replace("}{","},{")
+    variantsDict = variantsDict.replace(']"','],"')
+    
+    result = str(f)+"|||"+str(p)+"|||"+str(variantsDict)
+    
+    return result
+
+'''
 @app.route('/petriNetFreq', methods=['GET'])
 def petriNetFreq():
     log = xes_importer.apply(log_path)
@@ -241,6 +386,127 @@ def total():
     for i in range(0, len(all_case_durations)):
        total = total + all_case_durations[i];
 
-    return str(total)   
+    return str(total)  
 
+@app.route('/filterPerformance', methods=['GET', 'POST'])
+def filterPerformance():
+    log = xes_importer.apply(log_path)
+    from pm4py.algo.filtering.log.cases import case_filter
+    
+    # GET
+    if request.args.get('min') == None:
+        min_sec = 0;
+    else:
+        min_sec = float(request.args.get('min'))
+    if request.args.get('max') == None:
+        max_sec = 100*3,154e+7;
+    else:
+        max_sec = float(request.args.get('max'))
+
+    filtered_log = case_filter.filter_case_performance(log, min_sec, max_sec)
+    
+    f = createGraphFReduced(filtered_log)
+    p = createGraphPReduced(filtered_log)
+    
+    variantsDict = '{'
+
+    cases = len(filtered_log)
+    j=0
+    for i in range(0, cases):
+        info = filtered_log[i].__getattribute__('attributes')
+        caseName = info['concept:name']
+
+        if ("variant-index" in info):
+            varIndex = info['variant-index']
+            if (i == 0):
+                variantsDict = variantsDict + '"' + str(varIndex) + '": ['
+        else:
+            variantsDict = variantsDict + '"' + str(j+1) + '": ['
+        
+        variantsDict = variantsDict + '{"' + str(caseName) + '":['
+
+        for x in filtered_log[i]:
+            timestamp = x['time:timestamp']
+            x['time:timestamp'] = str(timestamp)
+            stringX = str(x).replace("'", '"')
+            variantsDict = variantsDict + '' + stringX  # +', '
+        j=j+1
+        variantsDict = variantsDict + ']}'  # chiude ogni caso
+        if ("variant-index" not in info):
+            if (i == cases):
+                variantsDict = variantsDict + ']' # chiude ogni variante
+    if ("variant-index" in info):
+        variantsDict = variantsDict + ']' # chiude ogni variante
+    variantsDict = variantsDict + '}' # chiude tutto
+
+    variantsDict = variantsDict.replace("][","],[")
+    variantsDict = variantsDict.replace("}{","},{")
+    variantsDict = variantsDict.replace(']"','],"')
+    
+    return result
+    
+@app.route('/filterTimeframe', methods=['GET', 'POST'])
+def filterTimeframe():
+    log = xes_importer.apply(log_path)
+    from pm4py.algo.filtering.log.timestamp import timestamp_filter
+    
+    # GET
+    if request.args.get('start') == None:
+        start = 0;
+    else:
+        start = request.args.get('start')
+    if request.args.get('end') == None:
+        end = 0;
+    else:
+        end = request.args.get('end')
+        
+        
+    if request.args.get('timeframe') == 'contained':
+        filtered_log = timestamp_filter.filter_traces_contained(log, start, end)
+    
+    if request.args.get('timeframe') == 'intersecting':
+        filtered_log = timestamp_filter.filter_traces_intersecting(log, start, end)
+        
+    f = createGraphFReduced(filtered_log)
+    p = createGraphPReduced(filtered_log)
+    
+    variantsDict = '{'
+
+    cases = len(filtered_log)
+    j=0
+    for i in range(0, cases):
+        info = filtered_log[i].__getattribute__('attributes')
+        caseName = info['concept:name']
+
+        if ("variant-index" in info):
+            varIndex = info['variant-index']
+            if (i == 0):
+                variantsDict = variantsDict + '"' + str(varIndex) + '": ['
+        else:
+            variantsDict = variantsDict + '"' + str(j+1) + '": ['
+        
+        variantsDict = variantsDict + '{"' + str(caseName) + '":['
+
+        for x in filtered_log[i]:
+            timestamp = x['time:timestamp']
+            x['time:timestamp'] = str(timestamp)
+            stringX = str(x).replace("'", '"')
+            variantsDict = variantsDict + '' + stringX  # +', '
+        j=j+1
+        variantsDict = variantsDict + ']}'  # chiude ogni caso
+        if ("variant-index" not in info):
+            if (i == cases):
+                variantsDict = variantsDict + ']' # chiude ogni variante
+    if ("variant-index" in info):
+        variantsDict = variantsDict + ']' # chiude ogni variante
+    variantsDict = variantsDict + '}' # chiude tutto
+
+    variantsDict = variantsDict.replace("][","],[")
+    variantsDict = variantsDict.replace("}{","},{")
+    variantsDict = variantsDict.replace(']"','],"')
+    
+    result = str(f)+"|||"+str(p)+"|||"+str(variantsDict)
+    
+    return result
+'''
 app.run(host=path, port=int(port_n))

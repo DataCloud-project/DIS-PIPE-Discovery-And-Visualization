@@ -118,6 +118,12 @@ def dfgPerformance():
     p = requests.get(path.strip('\n')+'dfgPerformance')
     return str(p.text)
     
+@app.route('/variants', methods=['GET', 'POST'])
+def variants():
+    p = requests.get(path.strip('\n')+'variants')
+    return str(p.text)    
+ 
+    
 @app.route('/dfgFreqReduced', methods=['GET', 'POST'])
 def dfgFreqReduced():
     # GET request
@@ -181,5 +187,117 @@ def dfgPerfReduced():
         
   
     return str(p.text)
+    
+@app.route('/filter', methods=['GET', 'POST'])
+def filter():
+    # GET request
+    if request.method == 'GET':
+        min_sec = request.args.get('min')
+        max_sec = request.args.get('max')
+        myPathF = request.args.get('myPathF')
+        myActF = request.args.get('myActF')
+        myPathP = request.args.get('myPathP')
+        myActP = request.args.get('myActP')
+        perfCheck = request.args.get('perf_checked')
+        start = request.args.get('start')
+        end = request.args.get('end')
+        timeframe = request.args.get('timeframe')
+        filterTime = request.args.get('filterTime')
+        filterPerf = request.args.get('filterPerf')        
+    
+    if perfCheck == None:
+        perfCheck = "false";
+    else:
+        perfCheck = "true";
+        
+    if filterPerf == None:
+        filterPerf = "false";
+        
+    if filterTime == None:
+        filterTime = "false";
+        
+    
+    #path = request.args.get('myPathF')
+    paramsP = {'myPathF' : myPathF, 'myActF' : myActF, 'myPathP' : myPathP, 'myActP' : myActP, 'min' : min_sec, 'max' : max_sec, 'start' : start, 'end' : end, 'timeframe' : timeframe, "filterTime": filterTime, "filterPerf": filterPerf}
+    p = requests.get(path.strip('\n')+'filter', params = paramsP)
 
+    #print(request.form.get('updated'))
+    if request.form.get('updated') != None:
+        f = request.files['file']
+        if f.filename != '': 
+          #f.save("event logs/" + f.filename)
+          f.save(log_path)
+          return home(f.filename)      
+
+    return str(p.text)        
+'''
+@app.route('/filterPerformance', methods=['GET', 'POST'])
+def filterPerformance():
+    # GET request
+    if request.method == 'GET':
+        min_sec = request.args.get('min')
+        max_sec = request.args.get('max')
+        myPathF = request.args.get('myPathF')
+        myActF = request.args.get('myActF')
+        myPathP = request.args.get('myPathP')
+        myActP = request.args.get('myActP')
+        perfCheck = request.args.get('perf_checked')
+    
+    if perfCheck == None:
+        perfCheck = "false";
+    else:
+        perfCheck = "true";
+        
+    
+    #path = request.args.get('myPathF')
+    paramsP = {'myPathF' : myPathF, 'myActF' : myActF, 'myPathP' : myPathP, 'myActP' : myActP, 'min' : min_sec, 'max' : max_sec}
+    p = requests.get(path.strip('\n')+'filterPerformance', params = paramsP)
+
+    #print(request.form.get('updated'))
+    if request.form.get('updated') != None:
+        f = request.files['file']
+        if f.filename != '': 
+          #f.save("event logs/" + f.filename)
+          f.save(log_path)
+          return home(f.filename)      
+      
+        
+    print(p.text)
+    return str(p.text)
+
+@app.route('/filterTimeframe', methods=['GET', 'POST'])
+def filterTimeframe():
+    # GET request
+    if request.method == 'GET':
+        start = request.args.get('start')
+        end = request.args.get('end')
+        timeframe = request.args.get('timeframe')
+        myPathF = request.args.get('myPathF')
+        myActF = request.args.get('myActF')
+        myPathP = request.args.get('myPathP')
+        myActP = request.args.get('myActP')
+        perfCheck = request.args.get('perf_checked')
+    
+    if perfCheck == None:
+        perfCheck = "false";
+    else:
+        perfCheck = "true";
+        
+    
+    #path = request.args.get('myPathF')
+    paramsP = {'myPathF' : myPathF, 'myActF' : myActF, 'myPathP' : myPathP, 'myActP' : myActP, 'start' : start, 'end' : end, 'timeframe' : timeframe}
+    p = requests.get(path.strip('\n')+'filterTimeframe', params = paramsP)
+
+    #print(request.form.get('updated'))
+    if request.form.get('updated') != None:
+        f = request.files['file']
+        if f.filename != '': 
+          #f.save("event logs/" + f.filename)
+          f.save(log_path)
+          return home(f.filename)      
+      
+        
+    print(p.text)
+    return str(p.text)
+'''
 app.run(host=path_f, port=int(port_n))

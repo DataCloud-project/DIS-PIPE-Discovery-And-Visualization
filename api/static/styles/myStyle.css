@@ -20,6 +20,7 @@ body{
 ::selection{
   background: #6d50e2;
   color: #fff;
+  
 }
 
 #loadingMessage {
@@ -254,6 +255,22 @@ label #btn_filter{
 	/*max-width: 900px;
 }
 */
+
+.fa-trash-can {
+	background: #7a4791;
+	border-radius: 12px;
+	padding: 15px;
+	color: white;
+	z-index: 20;
+	font-size: 25px;
+	margin-right: 5px;
+	margin-left: 30px;
+	float: right;
+	max-height: 60px;
+}
+
+
+
 #check_tabs:checked ~ .mapContainer .mytabs {
 	display: flex;
 }
@@ -310,7 +327,12 @@ input#tabFilter:checked + label {
 }
 
 .btn-group {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  /*grid-auto-rows: minmax(100px, auto);*/
+	
+  /*display: flex;*/
   justify-content: center;
   flex-direction: column;
   color: black; /* White text */
@@ -443,11 +465,14 @@ width: 100%;
 }
 
 .left, .middle {
-  width: 25%;
+  width: 15%;
 }
 
 .right {
-  width: 50%;
+  width: 70%;
+  overflow: auto;
+  padding-right: 10px;
+  white-space: nowrap;
 }
 
 /* Clear floats after the columns */
@@ -462,11 +487,12 @@ tr:nth-child(even) {
   
 }
 
+/*
 th:nth-child(even),td:nth-child(even) {
   background-color: #7a4791;
   color: #fff;
 }
-
+*/
 tr {
 	border: 1px solid #fff;
 }

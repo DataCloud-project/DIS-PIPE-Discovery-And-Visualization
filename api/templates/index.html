@@ -3,7 +3,7 @@
 <head>
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/myStyle.css') }}">
     <!-- Fontawesome CDN Link -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 	<title>Index</title>
 </head>
 
@@ -248,69 +248,13 @@ function checkRefresh()
 						  </div>
 						  <div class="column middle">
 							<div class="containerCases">
-								<h3>Cases</h3>conda 
+								<h3>Cases</h3>
 								<ul id="case-ul">
 								</ul>
 							</div>
 						  </div>
 						  <div class="column right">
-							<table>
-							  <tr>
-								<th>Activity</th>
-								<th>Resource</th>
-								<th>Date</th>
-								<th>Time</th>
-								<th>Duration</th>
-								<th>Role</th>
-							  </tr>
-							  <tr>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-							  </tr>
-							  <tr>
-								<td>2</td>
-								<td>2</td>
-								<td>2</td>
-								<td>2</td>
-								<td>2</td>
-								<td>2</td>
-							  </tr>
-							  <tr>
-								<td>3</td>
-								<td>3</td>
-								<td>3</td>
-								<td>3</td>
-								<td>3</td>
-								<td>3</td>
-							  </tr>
-							  <tr>
-								<td>4</td>
-								<td>4</td>
-								<td>4</td>
-								<td>4</td>
-								<td>4</td>
-								<td>4</td>
-							  </tr>
-							  <tr>
-								<td>5</td>
-								<td>5</td>
-								<td>5</td>
-								<td>5</td>
-								<td>5</td>
-								<td>5</td>
-							  </tr>
-							  <tr>
-								<td>6</td>
-								<td>6</td>
-								<td>6</td>
-								<td>6</td>
-								<td>6</td>
-								<td>6</td>
-							  </tr>
+							<table id="eventsTable">
 							</table>
 						  </div>
 						</div>
@@ -326,36 +270,36 @@ function checkRefresh()
 							<label for="tabFilter">Filtering</label>
 							<div class="tab"> 
 								<div class="btn-group">
-									<button type="button" id="timeframe_filter" onclick="openForm(this.id)"><i class="far fa-clock"></i>
+									<button type="button" id="timeframe_filter" style="grid-column: 1 / 2;grid-row: 1;" onclick="openForm(this.id)"><i class="far fa-clock"></i>
 										<strong>Timeframe</strong>
 										<br>
 										<small>Filters by timestamps</small>
 									</button>
-									<!-- <button type="button" id="vriants"><i class="fas fa-suitcase"></i>
-										<strong>Variation</strong>
-										<br>
-										<small>Filters variants</small>
-										</button> -->
-									<button type="button"id="perf_filter" onclick="openForm(this.id)"><i class="fas fa-stopwatch"></i>
+									<i id="timeframe_remove" class="fa-solid fa-trash-can" style="visibility: hidden; grid-column: 2 / 2;grid-row: 1;" onclick="removeFilter(this.id)"></i>
+									<button type="button"id="perf_filter" style="grid-column: 1 / 2;grid-row: 2;" onclick="openForm(this.id)"><i class="fas fa-stopwatch"></i>
 										<strong>Performance</strong>
 										<br>
 										<small>Filters cases by performance</small>
 									</button>
-									<button type="button" id="endpoints_filter" onclick="openForm(this.id)"><i class="fas fa-route"></i>
+									<i id="perf_remove" class="fa-solid fa-trash-can" style="visibility: hidden; grid-column: 2 / 2;grid-row: 2;" onclick="removeFilter(this.id)"></i>
+									<button type="button" id="endpoints_filter" style="grid-column: 1 / 2;grid-row: 3;" onclick="openForm(this.id)"><i class="fas fa-route"></i>
 										<strong>Endpoints</strong>
 										<br>
 										<small>Removes incomplete cases</small>
 									</button>
-									<button type="button" id="attribute_filter" onclick="openForm(this.id)"><i class="fas fa-comment-slash"></i>
+									<i id="endpoints_remove" class="fa-solid fa-trash-can" style="visibility: hidden; grid-column: 2 / 2;grid-row: 3;" onclick="removeFilter(this.id)"></i>
+									<button type="button" id="attribute_filter" style="grid-column: 1 / 2;grid-row: 4;" onclick="openForm(this.id)"><i class="fas fa-comment-slash"></i>
 										<strong>Attribute</strong>
 										<br>
 										<small>Removes events by attribute</small>
 									</button>
-									<button type="button" id="follower_filter" onclick="openForm(this.id)"><i class="fas fa-people-arrows"></i>
+									<i id="attribute_remove" class="fa-solid fa-trash-can" style="visibility: hidden; grid-column: 2 / 2;grid-row: 4;" onclick="removeFilter(this.id)"></i>
+									<button type="button" id="follower_filter" style="grid-column: 1 / 2;grid-row: 5;" onclick="openForm(this.id)"><i class="fas fa-people-arrows"></i>
 										<strong>Follower</strong>
 										<br>
 										<small>Filters by subsequences</small>
 									</button>
+									<i id="follower_remove" class="fa-solid fa-trash-can" style="visibility: hidden; grid-column: 2 / 2;grid-row: 5;" onclick="removeFilter(this.id)"></i>
 								</div>
 							</div>
 						</div>
@@ -369,11 +313,11 @@ function checkRefresh()
 							<!-- FILTER FOR TIMEFRAME -->
 							<div id="timeframe_filter_div" style="display:none">
 								<label for="starting-time">Choose your starting time:</label>
-								<input type="datetime-local" id="starting-time" name="starting-time" value="2018-06-07T00:00" min="2018-06-07T00:00" max="2018-06-14T00:00">
+								<input type="datetime-local" id="starting-time" name="starting-time" value="2018-06-07T00:00:00" min="2010-01-01T00:00:00" max="2021-12-31T00:00:00" step="20">
 								<br />
 								<br />
 								<label for="ending-time">Choose your ending time:</label>
-								<input type="datetime-local" id="ending-time" name="ending-time" value="2018-06-14T00:00" min="2018-06-07T00:00" max="2018-06-14T00:00">
+								<input type="datetime-local" id="ending-time" name="ending-time" value="2018-06-14T00:00:00" min="2010-01-01T00:00:00" max="2021-12-31T00:00:00" step="20">
 								<br />
 								<br />
 								<text>Keep cases by:</text>
@@ -412,7 +356,7 @@ function checkRefresh()
 								<br />
 								<label id="label_input_max" for="input_max">Maximum duration: <small>(Use cases running shorter than)</small></label>
 								<br />
-								<input type="number" step="any" />
+								<input type="number" id="input_max" name="input_max" step="any" />
 								<select id= "select_time_2" name="select_time_2" class="dropdown" style="padding: 3px">
 								  <option value="mills">Milliseconds</option>
 								  <option value="seconds">Seconds</option>
@@ -591,7 +535,8 @@ function checkRefresh()
 							<br />
 							<br />
 							<div style="text-align:center">
-								<button type="submit" class="btn" style="margin-right:10px">Apply</button>
+								<!-- <button type="submit" class="btn" style="margin-right:10px" onclick="applyFilter()">Apply</button> -->
+								<button type="button" class="btn" style="margin-right:10px" onclick="applyFilter()">Apply</button>
 								<button type="button" class="btn" onclick="closeForm()">Cancel</button>
 							</div>
 							
@@ -887,12 +832,15 @@ function getMap(bool) {
 			else {
 				sample = document.getElementById("digraphP").innerHTML;
 			}
+		
 		//var sample = 'digraph g{ a -> b}';
 		sample = sample.replace(/&#34;/g, '"');
 		sample = sample.replace(/&gt;/g, ">");
 		sample = sample.replace(/&lt;/g, "<");
-		sample = sample.replace(/●/g, "&#9679;");
-		sample = sample.replace(/■/g, '&#9632;');
+		//sample = sample.replace(/●/g, "  &#9679;"); //9679
+		sample = sample.replace(/●/g, " ");
+		//sample = sample.replace(/■/g, '    &#9724;'); //9632
+		sample = sample.replace(/■/g, " ");
 		
 		
 		var options = {
@@ -937,6 +885,7 @@ function getMap(bool) {
 			
 			//console.log(nodes[i].children[2].innerHTML);
 			nodesNames[i] = nodes[i].children[2].innerHTML;
+			//console.log(nodes[i].children[2].innerHTML);
 			nodes[i].children[0].innerHTML = nodesNames[i];
 			
 			names = nodesNames[i].split(' (')[0];
@@ -947,7 +896,18 @@ function getMap(bool) {
 				// When the user clicks call function to open the popup
 			    openInfo(e);
 			}, false);
-			nodes[i].children[2].setAttribute("font-size", "10");
+			if(nodes[i].children[2].getAttribute("text-anchor") != "start"){
+				if(nodes[i].children[0].innerHTML != ""){
+					nodes[i].children[2].setAttribute("font-size", "10");
+				}
+				else{
+					nodes[i].children[2].setAttribute("fill", "red");
+				}
+			}
+			else{
+				nodes[i].children[1].setAttribute("fill", "green");
+			}
+			
 		}
 		
 		var edgesNames = [];
@@ -995,6 +955,8 @@ function getMap(bool) {
 </script>
 
 <script>
+var filtered_timeframe = false, filtered_perf = false;
+
 function reqListener1 () {
   document.getElementById("digraphF").innerHTML = this.responseText;
   //getMap(false);
@@ -1045,7 +1007,234 @@ function perfRequest() {
 }
 
 freqRequest();
-perfRequest();	
+perfRequest();
+
+var variantsInfo, json, allVariants, ul1, ul2, allCases, allEvents, maxDate, minDate;
+
+
+var selected = "variant1";
+
+var dates = [];
+
+function showEvents(varKey, caseKey) {
+	allCases = json[varKey];
+	allCases.forEach( (c) => {
+		var ck = Object.keys(c)[0]; //case key
+		if(caseKey == ck){
+			allEvents = Object.values(c)[0]; // all events
+		}
+	 });
+	 console.log(allEvents);
+	 
+	 var table = document.getElementById("eventsTable");
+	 //var tableHTML = "<tr><th>Activity</th><th>Resource</th><th>Date</th><th>Time</th><th>Duration</th><th>Role</th></tr>"
+	 var tableHTML = "<tr>";
+	 var i = 0;
+	 
+	 
+	 allEvents.forEach((e) => {
+		//dates.push(new Date(e["time:timestamp"]));
+	
+		var date = e["time:timestamp"].split(" ")[0];
+		var time = e["time:timestamp"].split(" ")[1];
+	 
+		
+		//console.log(e);
+		//console.log(Object.entries(e));
+		
+		if(i==0){
+			tableHTML += "<th>Activity</th><th>Resource</th>" ;
+			Object.entries(e).forEach((attr) => { 
+				if(attr[0] == "time:timestamp") {
+					tableHTML += "<th>Date</th><th>Time</th>" ;
+				} else if (attr[0] == "Activity" || attr[0] == "Resource") {
+	
+				}else {
+					tableHTML += "<th>"+ attr[0] +"</th>" ;
+				}
+			});
+			tableHTML += "<tr>";
+			i++;
+		}
+		
+		tableHTML += "<tr>"
+		tableHTML += "<td>" + e["Activity"] + "</td>"
+		tableHTML += "<td>" + e["Resource"] + "</td>"
+		Object.entries(e).forEach((attr) => { 
+			if(attr[0] == "time:timestamp") {
+					tableHTML += "<td>"+date+"</td><td>"+time+"</td>" ;
+			} else if (attr[0] == "Activity" || attr[0] == "Resource") {
+	
+			}else {
+				tableHTML += "<td>" + attr[1] + "</td>" ;
+			}
+		});
+		
+		
+		/*tableHTML += "<td>" + e["Activity"] + "</td>"
+		tableHTML += "<td>" + e["Resource"] + "</td>"
+		tableHTML += "<td>" + date + "</td>"
+		tableHTML += "<td>" + time + "</td>"
+		tableHTML += "<td>" + "Duration" + "</td>"
+		tableHTML += "<td>" + "Role" + "</td>"*/
+		tableHTML += "</tr>"
+	 });
+	 
+	 
+	table.innerHTML = tableHTML;
+	
+	var liItems = document.getElementById("case-ul").getElementsByTagName("li"); 
+	//console.log(liItems);
+	for (i = 0; i < liItems.length; i++) {
+		//console.log(liItems[i].id == li.id);
+		if(liItems[i].id == "case"+caseKey){
+			//console.log(liItems[i].id);
+			//console.log(li.id);
+			liItems[i].setAttribute("style", "background-color: #7a4791; cursor: pointer; color:white;");
+			//selected = li.id;
+		}
+		else {
+			liItems[i].setAttribute("style", "background-color: #dad3f8; cursor: pointer; color: black;");
+		}
+	}
+
+}
+
+
+function showCases(li, key1) {
+	var liItems = document.getElementById("variants-ul").getElementsByTagName("li"); 
+	//console.log(liItems);
+	for (i = 0; i < liItems.length; i++) {
+		//console.log(liItems[i].id == li.id);
+		if(liItems[i].id == li.id){
+			//console.log(liItems[i].id);
+			//console.log(li.id);
+			li.setAttribute("style", "background-color: #7a4791; cursor: pointer; color:white;");
+			selected = li.id;
+		}
+		else {
+			liItems[i].setAttribute("style", "background-color: #dad3f8; cursor: pointer; color:black;");
+		}
+	}
+	//console.log(selected);
+	
+	allCases = json[key1];
+	ul2.innerHTML = "";
+	allCases.forEach( (c) => {
+		var caseKey = Object.keys(c)[0]; //case key
+		allEvents = Object.values(c)[0]; // all events
+		
+		
+		var li2 = document.createElement('li');
+		if("variant"+key1 == selected){
+			li2.innerHTML = '<span>' + "Case " + caseKey + '</span><br><small>' + "Events: " + allEvents.length + '</small>';
+			li2.setAttribute("style", "cursor: pointer");
+			li2.setAttribute("id", "case"+ caseKey);
+			//alert("ok");
+			//li2.setAttribute("onclick", "alert('Variant "+ e +"')");
+			li2.setAttribute("onclick", "showEvents("+key1+","+caseKey+")");
+			ul2.append(li2);
+		}
+	});
+
+
+	/*
+	
+	
+		
+		Object.values(allEvents)[0].forEach((key3) => {
+		  //----For each event I see its details
+		  
+			//----singleEvent = allEvents[key3];
+			//console.log(singleEvent); //?
+			//console.log(key3); //Contains details regarding signle case
+			
+			//console.log("Event: " + Object.keys(singleEvent)[key]);
+			//console.log(Object.values(singleEvent)[key]);
+		});
+	  });*/
+};
+
+function reqListener3 () {
+   
+  var response = this.responseText;
+  if (filtered_timeframe == true || filtered_perf == true) {
+	  document.getElementById("digraphF").innerHTML = response.split("|||")[0];
+	  document.getElementById("digraphP").innerHTML = response.split("|||")[1];
+	  variantsInfo = response.split("|||")[2];
+  }
+  else{
+	variantsInfo = response;
+  }
+  
+  
+  json = JSON.parse(variantsInfo);
+  //console.log(json);
+  
+  allVariants = Object.keys(json);
+  //console.log("Total variants: " +String(allVariants.length));
+  //allVariants.lenght = Number of variants
+  //Object.values(allVariants) = array with Variants ID
+  
+  ul1 = document.getElementById("variants-ul");
+  ul2 = document.getElementById("case-ul");
+  
+	
+  ul1.innerHTML = "";
+  ul2.innerHTML = "";
+  document.getElementById("eventsTable").innerHTML = "";
+  Object.keys(json).forEach((key1) => {
+	
+	
+	
+	//----For each variant I see which are the cases corresponding
+	//console.log("Variant " + String(key1));
+	allCases = json[key1];
+	//----allCases.length = Number of cases for each specific Variant (json[key])
+	//console.log("Total cases: " + String(allCases.length));
+	//console.log(allCases);
+	
+	
+	var li = document.createElement('li');
+	li.innerHTML = '<span>' + "Variant " + key1 + '</span><br><small>' + "Cases: " + String(allCases.length) + '</small>';
+	li.setAttribute("style", "cursor: pointer");
+	li.setAttribute("id", "variant"+key1);
+	//li.setAttribute("onclick", "alert('Variant "+ key1 +"')");
+	li.setAttribute("onclick", "showCases("+li.getAttribute('id')+"," +key1+")");
+	ul1.append(li);	
+	
+	// calculate min and max dates
+	 
+	allCases.forEach( (c) => {
+		allEvents = Object.values(c)[0]; // all events
+		allEvents.forEach((e) => {
+			dates.push(new Date(e["time:timestamp"]));
+		});
+	 });
+	 
+
+  });
+	
+	document.getElementById(selected).click();
+	
+	maxDate=new Date(Math.max.apply(null,dates));
+	minDate=new Date(Math.min.apply(null,dates));
+	maxDate = maxDate.toISOString().split(".")[0];
+	minDate = minDate.toISOString().split(".")[0];
+  
+  //getMap(false);
+}
+
+
+
+function variantRequest() {
+	var oReq = new XMLHttpRequest();
+	oReq.addEventListener("load", reqListener3);
+	oReq.open("GET", frontend+"variants", false);
+	oReq.send();
+}
+
+variantRequest();	
 //getMap(false);
 /*
 function reqListener3 () {
@@ -1113,9 +1302,7 @@ startingPoint();
 endingPoint();
 */
 
-</script>	
-
-
+</script>
 
 <script>
 var perf_checked = document.getElementById("perf_checked");
@@ -1127,54 +1314,8 @@ if ((perf_checked).value == "true"){
 var menu = document.getElementById("menu");
 menu.style.display = "none";
 
-//Load variants
-	var variants=[
-		"variant 1",
-		"variant 2",
-		"variant 3",
-		"variant 4",
-		"variant 5",
-		"variant 6",
-		"variant 7",
-		"variant 8"
-	];
-	
-	var cases=[
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID",
-		"case ID"
-	];
 	
 	getMap(true);
-	
-	var ul1 = document.getElementById("variants-ul");
-	
-	variants.forEach(function(e){
-		var li = document.createElement('li');
-		li.innerText = e;
-		ul1.append(li);
-	});
-	
-	var ul2 = document.getElementById("case-ul");
-	
-	cases.forEach(function(e){
-		var li = document.createElement('li');
-		li.innerText = e;
-		ul2.append(li);
-	});
-	
 
 window.onchange = function() {
 	if (document.getElementById("file").files[0] != undefined) {
@@ -1186,6 +1327,13 @@ window.onchange = function() {
 	var img = document.getElementById("img");
 	var source = "../static/images/"
 	img.src = source+timeframe_selected+".jpg";
+	
+	document.getElementById("starting-time").setAttribute("min", minDate);
+	document.getElementById("starting-time").setAttribute("max", maxDate);
+	document.getElementById("starting-time").setAttribute("value", minDate);
+	document.getElementById("ending-time").setAttribute("min", minDate);	
+	document.getElementById("ending-time").setAttribute("max", maxDate);
+	document.getElementById("ending-time").setAttribute("value", maxDate);
 	
 	var perf_selected = document.getElementById("filter_by_performance").value;
 	if (perf_selected == "caseDuration") {
@@ -1250,6 +1398,155 @@ window.onchange = function() {
 		
 }
 
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+  document.getElementById("blocker").style.display = "none";
+  document.getElementById("check_filter").checked = false;
+}
+
+
+
+function applyFilter() {
+	
+	var tf_selected = document.getElementById("keep_timeframe").value;
+	var start_tf = document.getElementById("starting-time").value;
+	var end_tf = document.getElementById("ending-time").value;
+	
+	start_tf = start_tf.replace("T", " ");
+	end_tf = end_tf.replace("T", " ");
+	
+	
+	var time1 = document.getElementById("select_time_1").value;
+	var min = document.getElementById("input_min").value;
+	var min_sec;
+	switch(time1){
+		case "mills": min_sec = (min / 1000); break;
+		case "seconds": min_sec = min; break;
+		case "minutes": min_sec = (min *60); break;
+		case "hours": min_sec = (min *3600); break;
+		case "days": min_sec = (min *86400); break;
+		case "weeks": min_sec = (min *604800); break;
+		case "years": min_sec = (min *3,154e+7); break; 
+	}
+	
+	var time2 = document.getElementById("select_time_2").value;
+	var max = document.getElementById("input_max").value;
+	var max_sec;
+	switch(time2){
+		case "mills": max_sec = (max / 1000); break;
+		case "seconds": max_sec = max; break;
+		case "minutes": max_sec = (max *60); break;
+		case "hours": max_sec = (max *3600); break;
+		case "days": max_sec = (max *86400); break;
+		case "weeks": max_sec = (max *604800); break;
+		case "years": max_sec = (max *3,154e+7); break;
+	}		
+	
+	var oReq = new XMLHttpRequest();
+	//oReq.addEventListener("load", reqListenerFilter);
+	oReq.addEventListener("load", reqListener3);
+	
+	if(document.getElementById("timeframe_filter_div").style.display == "block"){
+		document.getElementById("timeframe_filter").setAttribute("style", "background-color: #7a4791;");
+		document.getElementById("timeframe_remove").style.visibility = "visible";
+		filtered_timeframe = true;
+		//oReq.open("GET", frontend+"filterTimeframe"+"?start="+start_tf+"&end="+end_tf+"&timeframe="+tf_selected, false);
+	}
+	
+	if(document.getElementById("perf_filter_div").style.display == "block"){		
+		document.getElementById("perf_filter").setAttribute("style", "background-color: #7a4791;");
+		document.getElementById("perf_remove").style.visibility = "visible";
+		filtered_perf = true;
+		//oReq.open("GET", frontend+"filterPerformance"+"?min="+String(min_sec)+"&max="+String(max_sec), false);
+	}
+	
+	oReq.open("GET", frontend+"filter"+"?start="+start_tf+"&end="+end_tf+"&timeframe="+tf_selected+"&min="+String(min_sec)+"&max="+String(max_sec)+"&filterTime="+filtered_timeframe+"&filterPerf="+filtered_perf, false);
+	oReq.send();
+	getMap(false);
+	closeForm();
+	
+}
+
+function removeFilter(id){
+	document.getElementById(id).style.visibility = "hidden";
+	id= id.split("_")[0];
+	document.getElementById(id+"_filter").setAttribute("style", "background-color: #cfa8d5;");
+	
+	var oReq = new XMLHttpRequest();
+	//oReq.addEventListener("load", reqListenerFilter);
+	oReq.addEventListener("load", reqListener3);
+	
+	switch(id){
+		case "timeframe": 
+			filtered_timeframe = false;
+			break;
+			
+		case "perf": 
+			filtered_perf = false;
+			break;
+	}
+
+	var tf_selected = document.getElementById("keep_timeframe").value;
+	var start_tf = document.getElementById("starting-time").value;
+	var end_tf = document.getElementById("ending-time").value;
+		
+	start_tf = start_tf.replace("T", " ");
+	end_tf = end_tf.replace("T", " ");
+	
+		//oReq.open("GET", frontend+"filterTimeframe"+"?start="+start_tf+"&end="+end_tf+"&timeframe="+tf_selected, false);
+		//oReq.send();
+	//filtered_timeframe = false;
+
+
+	var time1 = document.getElementById("select_time_1").value;
+	var min = document.getElementById("input_min").value;
+	var min_sec;
+	switch(time1){
+		case "mills": min_sec = (min / 1000); break;
+		case "seconds": min_sec = min; break;
+		case "minutes": min_sec = (min *60); break;
+		case "hours": min_sec = (min *3600); break;
+		case "days": min_sec = (min *86400); break;
+		case "weeks": min_sec = (min *604800); break;
+		case "years": min_sec = (min *3,154e+7); break; 
+	}
+	
+	var time2 = document.getElementById("select_time_2").value;
+	var max = document.getElementById("input_max").value;
+	var max_sec;
+	switch(time2){
+		case "mills": max_sec = (max / 1000); break;
+		case "seconds": max_sec = max; break;
+		case "minutes": max_sec = (max *60); break;
+		case "hours": max_sec = (max *3600); break;
+		case "days": max_sec = (max *86400); break;
+		case "weeks": max_sec = (max *604800); break;
+		case "years": max_sec = (max *3,154e+7); break;
+	}
+	//oReq.open("GET", frontend+"filterPerformance"+"?min="+String(min_sec)+"&max="+String(max_sec), false);
+	//oReq.send();
+	//filtered_perf = false;
+	console.log(filtered_perf);
+	console.log(filtered_timeframe);
+	
+	if(filtered_perf == false && filtered_timeframe == false) {
+		freqRequest();
+		perfRequest();
+		variantRequest();
+		
+	}
+	else{
+		oReq.open("GET", frontend+"filter"+"?start="+start_tf+"&end="+end_tf+"&timeframe="+tf_selected+"&min="+String(min_sec)+"&max="+String(max_sec)+"&filterTime="+filtered_timeframe+"&filterPerf="+filtered_perf, false);
+		oReq.send();
+	}
+	//filtered = false;
+	//freqRequest();
+	//perfRequest();
+	//variantRequest();
+	getMap(false);
+	
+	closeForm();
+}
 		
 function update(){
 	document.getElementById('updated').value = true;
@@ -1307,10 +1604,6 @@ function openForm(id) {
   document.getElementById("myForm").style.display = "block";
 }
 
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-  document.getElementById("blocker").style.display = "none";
-}
 
 
 var menuBtn = document.getElementById("check");
