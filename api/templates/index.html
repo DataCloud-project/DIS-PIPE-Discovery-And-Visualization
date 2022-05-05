@@ -1017,10 +1017,14 @@ var selected = "variant1";
 var dates = [];
 
 function showEvents(varKey, caseKey) {
+	console.log
 	allCases = json[varKey];
 	allCases.forEach( (c) => {
+		
 		var ck = Object.keys(c)[0]; //case key
+		console.log(caseKey +" =?= "+ck);
 		if(caseKey == ck){
+			console.log("yes");
 			allEvents = Object.values(c)[0]; // all events
 		}
 	 });
@@ -1132,7 +1136,7 @@ function showCases(li, key1) {
 			li2.setAttribute("id", "case"+ caseKey);
 			//alert("ok");
 			//li2.setAttribute("onclick", "alert('Variant "+ e +"')");
-			li2.setAttribute("onclick", "showEvents("+key1+","+caseKey+")");
+			li2.setAttribute("onclick", "showEvents("+key1+",'"+caseKey+"')");
 			ul2.append(li2);
 		}
 	});

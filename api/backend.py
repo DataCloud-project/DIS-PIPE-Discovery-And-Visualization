@@ -180,22 +180,25 @@ def variants():
     variants = variants_filter.get_variants(log)
     variantsDict = '{'
 
-    j=-1
+    j=0
     for var, trace in variants.items():
 
-        j =j+1
+        
         cases = len(trace)
+        info = (list(variants.values())[j][0])
+        info = info.__getattribute__('attributes')
+        #Apri la variante
+        if("variant-index" in info):
+            variantsDict = variantsDict + '"' + str(info['variant-index']) + '": ['
+        else:
+            variantsDict = variantsDict + '"' + str(j) + '": ['
+        
         for i in range(0, cases):
             info = (list(variants.values())[j][i])
             info = info.__getattribute__('attributes')
             caseName = info['concept:name']
 
-            if("variant-index" in info):
-                varIndex = info['variant-index']
-                if (i == 0):
-                    variantsDict = variantsDict + '"' + str(varIndex) + '": ['
-            else:
-                variantsDict = variantsDict + '"' + str(j+1) + '": ['
+            
             variantsDict = variantsDict + '{"'+str(caseName)+'":['
 
             for x in trace[i]:
@@ -205,11 +208,14 @@ def variants():
                 variantsDict = variantsDict + '' + stringX #+', '
             variantsDict = variantsDict + ']}' # chiude ogni caso
         variantsDict = variantsDict + ']' # chiude ogni variante
+        j =j+1
     variantsDict = variantsDict + '}' # chiude tutto
 
     variantsDict = variantsDict.replace("][","],[")
     variantsDict = variantsDict.replace("}{","},{")
-    variantsDict = variantsDict.replace(']"','],"')
+    variantsDict = variantsDict.replace(']"','],"')        
+    variantsDict = variantsDict.replace('True','"True"')
+    variantsDict = variantsDict.replace('False','"False"')
 
     return variantsDict
 
@@ -227,6 +233,8 @@ def dfgPerfReduced():
 @app.route('/filter', methods=['GET', 'POST'])
 def filter():
     log = xes_importer.apply(log_path)
+    variants = variants_filter.get_variants(log)
+    
     from pm4py.algo.filtering.log.timestamp import timestamp_filter
     from pm4py.algo.filtering.log.cases import case_filter
     
@@ -253,9 +261,7 @@ def filter():
         
 
     if request.args.get('filterTime') == "true":
-        print("filter Timeframe active")
         if request.args.get('timeframe') == 'contained':
-            print("contained")
             filtered_log = timestamp_filter.filter_traces_contained(log, start, end)
             log = filtered_log
     
@@ -263,35 +269,34 @@ def filter():
             filtered_log = timestamp_filter.filter_traces_intersecting(log, start, end)
             log = filtered_log
     else:
-        print("Here we are. No filters TIMEFRAME")
         filtered_log = log
 
     if request.args.get('filterPerf') == "true":
-        print("filter performance active")
         filtered_log = case_filter.filter_case_performance(log, min_sec, max_sec)
         log = filtered_log
     
     else:
-        print("Here we are. No filters")
         filtered_log = log
 
     f = createGraphFReduced(filtered_log)
     p = createGraphPReduced(filtered_log)
     
+    '''
     variantsDict = '{'
 
     cases = len(filtered_log)
+    print(cases)
     j=0
     for i in range(0, cases):
+        j=j+1
         info = filtered_log[i].__getattribute__('attributes')
         caseName = info['concept:name']
-
         if ("variant-index" in info):
             varIndex = info['variant-index']
             if (i == 0):
                 variantsDict = variantsDict + '"' + str(varIndex) + '": ['
         else:
-            variantsDict = variantsDict + '"' + str(j+1) + '": ['
+            variantsDict = variantsDict + '"' + str(j) + '": ['
         
         variantsDict = variantsDict + '{"' + str(caseName) + '":['
 
@@ -300,7 +305,7 @@ def filter():
             x['time:timestamp'] = str(timestamp)
             stringX = str(x).replace("'", '"')
             variantsDict = variantsDict + '' + stringX  # +', '
-        j=j+1
+        
         variantsDict = variantsDict + ']}'  # chiude ogni caso
         if ("variant-index" not in info):
             variantsDict = variantsDict + ']' # chiude ogni variante
@@ -311,6 +316,58 @@ def filter():
     variantsDict = variantsDict.replace("][","],[")
     variantsDict = variantsDict.replace("}{","},{")
     variantsDict = variantsDict.replace(']"','],"')
+    '''
+    variantsDict = '{'
+
+    j=-1
+    for var, trace in variants.items():
+
+        j =j+1
+        cases = len(trace)
+        #print("Numero cases var "+str(j)+": "+str(cases))
+        varEmpty = True
+        for i in range(0, cases):
+            info = (list(variants.values())[j][i])
+            info = info.__getattribute__('attributes')
+            #print("info: "+str(info))
+            caseName = info['concept:name']
+            #print(trace[i])
+            inFilter = False
+            for k in range(0,len(filtered_log)):
+                infoFiltered = filtered_log[k].__getattribute__('attributes')
+                filteredCaseName = infoFiltered['concept:name']
+                if(filteredCaseName == caseName):
+                    inFilter = True
+                    break
+
+            if(inFilter == False):
+                break
+            if(i==0):
+                varEmpty = False
+                if("variant-index" in info):
+                    variantsDict = variantsDict + '"' + str(info['variant-index']) + '": ['
+                else:
+                    variantsDict = variantsDict + '"' + str(j) + '": ['
+                #variantsDict = variantsDict + '"' + str(j) + '": ['
+            variantsDict = variantsDict + '{"'+str(caseName)+'":['
+            #print("Trac i len: "+str(len(trace[i])))
+            for x in trace[i]:
+                timestamp = x['time:timestamp']
+                x['time:timestamp'] = str(timestamp)
+                stringX = str(x).replace("'",'"')
+                variantsDict = variantsDict + '' + stringX #+', '
+            variantsDict = variantsDict + ']}' # chiude ogni caso
+        if(varEmpty == False):
+            variantsDict = variantsDict + ']' # chiude ogni variante
+
+    variantsDict = variantsDict + '}' # chiude tutto
+
+    variantsDict = variantsDict.replace("][","],[")
+    variantsDict = variantsDict.replace("}{","},{")
+    variantsDict = variantsDict.replace(']"','],"')
+    #variantsDict = variantsDict.replace('}"','},"')
+    variantsDict = variantsDict.replace('True','"True"')
+    variantsDict = variantsDict.replace('False','"False"')
     
     result = str(f)+"|||"+str(p)+"|||"+str(variantsDict)
     
